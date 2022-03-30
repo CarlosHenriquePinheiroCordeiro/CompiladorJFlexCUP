@@ -1,0 +1,52 @@
+/* incluir o pacote onde a classe sera criada */
+package compilador;
+import compilador.sym; /* essa classe sera criada pelo CUP */
+import java_cup.runtime.Symbol;
+
+%%
+%cup
+%class Lexico
+%full
+%line
+%char
+%ignorecase
+%eofval{
+    return new Symbol(sym.EOF, new String("Fim de arquivo"));
+%eofval}
+
+/* Definir as regras regulares */
+letra  = [a-zA-z]
+numero = [0-9]
+ws 	   = [\ \t]
+const  = {numero}+
+id     = {letra}({letra}|{numero})*
+
+%%
+/* Regras de traducao Tokens */
+"//".*    {/* ignorar comentarios */}
+"program" {return new Symbol (sym.PROGRAM	, yychar, yyline, yytext());}
+"if" 	  {return new Symbol (sym.IF	 	, yychar, yyline, yytext());}
+"="       {return new Symbol (sym.ATT	 	, yychar, yyline, yytext());}
+"+" 	  {return new Symbol (sym.SOMA	 	, yychar, yyline, yytext());}
+"-"       {return new Symbol (sym.SUB	 	, yychar, yyline, yytext());}
+"*"       {return new Symbol (sym.MULT	 	, yychar, yyline, yytext());}
+"/"       {return new Symbol (sym.DIV	 	, yychar, yyline, yytext());}
+">"       {return new Symbol (sym.MAIOR	 	, yychar, yyline, yytext());}
+"<"       {return new Symbol (sym.MENOR	 	, yychar, yyline, yytext());}
+">="      {return new Symbol (sym.MAIORI 	, yychar, yyline, yytext());}
+"<="      {return new Symbol (sym.MENORI 	, yychar, yyline, yytext());}
+"=="      {return new Symbol (sym.IGUALI   	, yychar, yyline, yytext());}
+"!="      {return new Symbol (sym.DIFERENTE	, yychar, yyline, yytext());}
+"&&"      {return new Symbol (sym.E	   		, yychar, yyline, yytext());}
+"||"      {return new Symbol (sym.OU		, yychar, yyline, yytext());}
+"true"    {return new Symbol (sym.TRUE		, yychar, yyline, yytext());}
+"false"   {return new Symbol (sym.FALSE		, yychar, yyline, yytext());}
+{id}	  {return new Symbol (sym.ID		, yychar, yyline, yytext());}
+{ws} 	  {/* Nenhuma acao */}
+"("       {return new Symbol (sym.AP		, yychar, yyline, yytext());}
+")"       {return new Symbol (sym.FP		, yychar, yyline, yytext());}
+{const}   {return new Symbol (sym.CONST		, yychar, yyline, yytext());}
+"{"       {return new Symbol (sym.AC		, yychar, yyline, yytext());}
+"}"       {return new Symbol (sym.FC		, yychar, yyline, yytext());}
+","       {return new Symbol (sym.VIRGULA	, yychar, yyline, yytext());}
+. 		  {return new Symbol (sym.ERRO);}

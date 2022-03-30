@@ -1,0 +1,96 @@
+package compilador;
+
+import java.io.*;
+import java_cup.runtime.*;
+import compilador.Lexico;
+
+parser code
+{:
+    // colocar funções que serão geradas no código
+    // exemplo - tratamento de erros sintáticos
+    public void syntax_error(Symbol s){
+        String strErro = "Erro de sintaxe. Linha: " + (s.right + 1) +
+            " Coluna: " + s.left + ". Texto: \"" + s.value + "\"" + " \n Token Encontrado: " + sym.terminalNames[s.sym] + " state " + s.parse_state;
+        
+        report_error(strErro, null); 
+        
+    }
+    public void semantico(Object tk){
+       System.out.println("Semântico....");
+    }
+
+
+    
+:};
+
+terminal PROGRAM, IF, TRUE, FLOAT, FALSE, INT, STRING, BOOL, VOID, PUBLIC, PRIVATE, PROTECTED, 
+		 RETURN, AP, FP, AC, FC, VIRGULA, ARRAY, SOMA, SUB, MULT, DIV, ATT, IGUAL, DIF, MAIORQ, 
+		 MENORQ, MAIORI, MENORI, NAO, E, OU, ID, CONST, WS, ERRO;
+
+non terminal PROGRAMA, LISTA_VAR, TYPE, VAR, TERM, PARAMETRO, OPERADOR_ARIT, OPERADOR_BOOL, EXPRESSAO, SCOPE, FUNCAO, 
+			 CALL_FUNC, ESTRUTURA, CONDICIONAL, BLOCO, RETORNO;
+
+PROGRAMA ::= PROGRAM ID AP LISTA_VAR FP AC BLOCO FC;
+
+LISTA_VAR ::= LISTA_VAR VAR 
+			| WS;
+
+TYPE ::= INT 
+		| STRING
+		| FLOAT 
+		| BOOL 
+		| VOID 
+		| TYPE ARRAY;
+
+VAR ::= TYPE ID VIRGULA VAR 
+		| ID VIRGULA VAR
+		| TYPE ID;
+
+TERM ::= ID 
+		| CONST 
+		| TRUE 
+		| FALSE;
+
+PARAMETRO ::= TERM 
+			| TERM VIRGULA PARAMETRO 
+			| WS;
+
+OPERADOR_ARIT ::= SOMA 
+				| SUB 
+				| MULT 
+				| DIV;
+
+OPERADOR_BOOL ::= MAIORQ 
+				| MENORQ 
+				| MAIORI 
+				| MENORI 
+				| IGUAL
+				| DIF;
+
+EXPRESSAO ::= TERM 
+			| TERM OPERADOR_ARIT EXPRESSAO 
+			| TERM OPERADOR_BOOL EXPRESSAO;
+
+SCOPE ::= PUBLIC 
+		| PRIVATE 
+		| PROTECTED;
+
+FUNCAO ::= SCOPE TYPE ID AP LISTA_VAR FP AC BLOCO RETURN FC;
+
+CALL_FUNC ::= ID AP PARAMETRO FP 
+			| VAR AP PARAMETRO FP;
+
+ESTRUTURA ::= IF;
+
+CONDICIONAL ::= IF AP EXPRESSAO FP AC BLOCO FC;
+
+BLOCO ::= VAR ATT EXPRESSAO BLOCO 
+		| EXPRESSAO BLOCO 
+		| CALL_FUNC BLOCO 
+		| FUNCAO BLOCO
+		| ESTRUTURA BLOCO 
+		| WS;
+
+RETORNO ::= RETURN ID 
+		| RETURN EXPRESSAO 
+		| WS;
