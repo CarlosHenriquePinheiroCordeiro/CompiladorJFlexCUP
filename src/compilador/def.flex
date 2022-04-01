@@ -9,13 +9,11 @@ import java_cup.runtime.ComplexSymbolFactory.Location;
 %public
 %class Lexico
 %cup
-%function next_token
 %implements sym
 %full
 %line
 %column
 %char
-%ignorecase
 /* as funções abaixo sobrescrevem o construtor da classe Symbol para suporte de mais argumentos */
 /* mais detalhes em: http://www2.cs.tum.edu/projects/cup/examples.php */
 %{
@@ -49,11 +47,11 @@ import java_cup.runtime.ComplexSymbolFactory.Location;
      return symbolFactory.newSymbol("EOF", EOF, new Location("EOF",yyline+1,yycolumn+1), new Location("EOF",yyline+1,yycolumn+1));
 %eofval}
 
-letras  = [a-zA-Z]
-numeros = [0-9]
-ws      = [\ |\n|\r]|[\t\f]
-id      = {letras}({letras}|{numeros})*
-const   = 0 | [1-9][0-9]*
+letras  	= [a-zA-Z]
+numeros 	= [0-9]
+ws      	= [\ |\n|\r]|[\t\f]
+id      	= {letras}({letras}|{numeros})*
+const   	= 0 | [1-9][0-9]*
 BoolLiteral = true | false
 
 %state STRING
@@ -62,52 +60,51 @@ BoolLiteral = true | false
 /* regras de tradução - tokens */
 "//".*      {/* ignorar comentários */}
 <YYINITIAL> {
-"program"		{return symbol("program",PROGRAM, new Integer(PROGRAM));			}
-"if"			{return symbol("if"			, IF	 	, new Integer(IF));			}
-"float"			{return symbol("float"		, FLOAT	 	, new Integer(FLOAT));		}
-"int"			{return symbol("int"		, INT	 	, new Integer(INT));		}
-"String"		{return symbol("String"		, STRING 	, new Integer(STRING));		}
-"boolean"		{return symbol("boolean"	, BOOL	 	, new Integer(BOOL));		}
-"void"			{return symbol("void"		, VOID	 	, new Integer(VOID));		}
-"public"		{return symbol("public"		, PUBLIC 	, new Integer(PUBLIC));		}
-"private"		{return symbol("private"	, PRIVATE	, new Integer(PRIVATE));	}
-"protected"		{return symbol("protected"	, PROTECTED	, new Integer(PROTECTED));	}
-"return"		{return symbol("return"		, RETURN	, new Integer(RETURN));		}
-{BoolLiteral}   {return symbol("bool"		, BOOL		, new Boolean(Boolean.parseBoolean(yytext())));}
-{id}        	{return symbol("id"			, ID		,yytext());					} 
-{const}     	{return symbol("const"		, CONST		,new Integer(Integer.parseInt(yytext())));} 
+"program"		{return symbol ("program"	, PROGRAM);													}
+"void"			{return symbol ("void"		, VOID);													}
+"public"		{return symbol ("public"	, PUBLIC); 													}
+"private"		{return symbol ("private"	, PRIVATE);													}
+"protected"		{return symbol ("protected"	, PROTECTED);												}
+"return"		{return symbol ("return"	, RETURN   );												}
+"if"			{return symbol ("if"		, IF	   );												}
+"float"			{return symbol ("float"		, TIPO	 	, new Integer(FLOAT));							}
+"int"			{return symbol ("int"		, TIPO	 	, new Integer(INT));							}
+"String"		{return symbol ("String"	, TIPO 		, new Integer(STRING));							}
+"boolean"		{return symbol ("boolean"	, TIPO	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
+{id}        	{return symbol ("id"		, ID		, yytext());									} 
+{const}     	{return symbol ("const"		, CONST		, new Integer(Integer.parseInt(yytext())));		} 
 {ws}            {/* nenhuma ação - ignorar espaços */  }
-"("        		{return new Symbol (sym.AP			, yychar, yyline, yytext());}
-")"        		{return new Symbol (sym.FP			, yychar, yyline, yytext());}
-"{"       		{return new Symbol (sym.AC			, yychar, yyline, yytext());}
-"}"       		{return new Symbol (sym.FC			, yychar, yyline, yytext());}
-","   			{return new Symbol (sym.VIRGULA		, yychar, yyline, yytext());}
-"[]"			{return new Symbol (sym.ARRAY		, yychar, yyline, yytext());}
-"+"         	{return new Symbol (sym.SOMA		, yychar, yyline, yytext());}  
-"-"         	{return new Symbol (sym.SUB			, yychar, yyline, yytext());}  
-"*"         	{return new Symbol (sym.MULT		, yychar, yyline, yytext());} 
-"/"         	{return new Symbol (sym.DIV			, yychar, yyline, yytext());}
-"="         	{return new Symbol (sym.ATT			, yychar, yyline, yytext());} 
-"=="        	{return new Symbol (sym.IGUAL		, yychar, yyline, yytext());} 
-"!="        	{return new Symbol (sym.DIF			, yychar, yyline, yytext());}
-">"         	{return new Symbol (sym.MAIORQ		, yychar, yyline, yytext());} 
-"<"        		{return new Symbol (sym.MENORQ		, yychar, yyline, yytext());}
-">="        	{return new Symbol (sym.MAIORI		, yychar, yyline, yytext());}
-"<="        	{return new Symbol (sym.MENORI		, yychar, yyline, yytext());}
-"!"         	{return new Symbol (sym.NAO			, yychar, yyline, yytext());}
-"&&"        	{return new Symbol (sym.E			, yychar, yyline, yytext());}
-"||"            {return new Symbol (sym.OU			, yychar, yyline, yytext());}
+"("        		{return symbol ("("			, AP);														}
+")"        		{return symbol (")"			, FP);														}
+"{"       		{return symbol ("{"			, AC);														}
+"}"       		{return symbol ("}"			, FC);														}
+","   			{return symbol (","			, VIRGULA);													}
+"[]"			{return symbol ("[]"		, ARRAY);													}
+"="         	{return symbol ("="			, ATT);													}
+"+"         	{return symbol ("soma"		, SOMA		, SOMA	, new Integer(SOMA));					} 	 
+"-"         	{return symbol ("sub"		, SUB		, SUB	, new Integer(SUB));					}
+"*"         	{return symbol ("mult"		, MULT		, MULT	, new Integer(MULT));					} 
+"/"         	{return symbol ("div"		, DIV		, DIV	, new Integer(DIV));					}	 
+"=="        	{return symbol ("=="		, IGUAL		, new Integer(IGUAL));							}	 
+"!="        	{return symbol ("!="		, DIF		, new Integer(DIF));							}
+">"         	{return symbol (">"			, MAIORQ	, new Integer(MAIORQ));							}	 
+"<"        		{return symbol ("<"			, MENORQ	, new Integer(MENORQ));							}
+">="        	{return symbol (">="		, MAIORI	, new Integer(MAIORI));							}
+"<="        	{return symbol ("<="		, MENORI	, new Integer(MENORI));							}
+"!"         	{return symbol ("!"			, NAO		, new Integer(NAO));							}
+"&&"        	{return symbol ("&&"		, E			, new Integer(E));								}
+"||"            {return symbol ("||"		, OU		, new Integer(OU));								}
 }
 <STRING> { /* para leitura de uma string */
-  \"                             { yybegin(YYINITIAL); 
-      return symbol("caracter",CARACTER,string.toString(),string.length()); }
-  [^\n\r\"\\]+                   { string.append( yytext() ); }
-  \\t                            { string.append('\t'); }
-  \\n                            { string.append('\n'); }
+  \" { yybegin(STRING); 
+      return symbol("cadeia",CADEIA,string.toString(),string.length()); }
+  [^\n\r\"\\]+ { string.append( yytext() ); }
+  \\t          { string.append('\t'); }
+  \\n          { string.append('\n'); }
 
-  \\r                            { string.append('\r'); }
-  \\\"                           { string.append('\"'); }
-  \\                             { string.append('\\'); }
+  \\r	       { string.append('\r'); }
+  \\\"         { string.append('\"'); }
+  \\           { string.append('\\'); }
 }
 
 /* tratamento de erros */

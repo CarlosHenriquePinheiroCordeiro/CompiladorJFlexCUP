@@ -9,44 +9,47 @@ package compilador;
 public interface sym {
   /* terminals */
   public static final int AC = 17;
-  public static final int MULT = 23;
-  public static final int CONST = 36;
-  public static final int SOMA = 21;
-  public static final int MENORQ = 29;
-  public static final int MAIORQ = 28;
-  public static final int ATT = 25;
+  public static final int MULT = 24;
+  public static final int TIPO = 40;
+  public static final int CONST = 37;
+  public static final int SOMA = 22;
+  public static final int MENORQ = 30;
+  public static final int MAIORQ = 29;
+  public static final int ATT = 26;
+  public static final int CADEIA = 41;
   public static final int PRIVATE = 12;
-  public static final int MENORI = 31;
+  public static final int MENORI = 32;
   public static final int INT = 7;
-  public static final int ARRAY = 20;
-  public static final int ERRO = 38;
-  public static final int MAIORI = 30;
-  public static final int VIRGULA = 19;
-  public static final int E = 33;
-  public static final int IGUAL = 26;
+  public static final int ARRAY = 21;
+  public static final int ERRO = 39;
+  public static final int MAIORI = 31;
+  public static final int VIRGULA = 20;
+  public static final int E = 34;
+  public static final int IGUAL = 27;
   public static final int FP = 16;
-  public static final int OU = 34;
+  public static final int OU = 35;
   public static final int BOOL = 9;
-  public static final int DIV = 24;
+  public static final int DIV = 25;
   public static final int IF = 3;
   public static final int FC = 18;
-  public static final int ID = 35;
+  public static final int ID = 36;
   public static final int EOF = 0;
   public static final int RETURN = 14;
   public static final int TRUE = 4;
   public static final int error = 1;
   public static final int PROGRAM = 2;
-  public static final int DIF = 27;
+  public static final int ASP = 19;
+  public static final int DIF = 28;
   public static final int VOID = 10;
   public static final int PROTECTED = 13;
-  public static final int WS = 37;
+  public static final int WS = 38;
   public static final int FLOAT = 5;
   public static final int PUBLIC = 11;
   public static final int STRING = 8;
   public static final int FALSE = 6;
-  public static final int NAO = 32;
+  public static final int NAO = 33;
   public static final int AP = 15;
-  public static final int SUB = 22;
+  public static final int SUB = 23;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -67,6 +70,7 @@ public interface sym {
   "FP",
   "AC",
   "FC",
+  "ASP",
   "VIRGULA",
   "ARRAY",
   "SOMA",
@@ -86,7 +90,9 @@ public interface sym {
   "ID",
   "CONST",
   "WS",
-  "ERRO"
+  "ERRO",
+  "TIPO",
+  "CADEIA"
   };
 }
 

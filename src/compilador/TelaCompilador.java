@@ -77,7 +77,8 @@ public class TelaCompilador {
 					    String line = in.nextLine();
 					    arquivo += line;
 					}
-					saidaResultado.setText(arquivo);
+					Analise analise = new Analise();
+					saidaResultado.setText(analise.analiseCompleta(arquivo));
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

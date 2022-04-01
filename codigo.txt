@@ -1,5 +1,3 @@
-program hello(){
-
-	String txt = "Hello World"
-
+program hello(int abc) {
+	int abc = 1
 }
