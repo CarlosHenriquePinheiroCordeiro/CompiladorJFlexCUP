@@ -49,8 +49,8 @@ import java_cup.runtime.ComplexSymbolFactory.Location;
 
 letras  	= [a-zA-Z]
 numeros 	= [0-9]
-ws      	= [\ |\n|\r]|[\t\f]
 id      	= {letras}({letras}|{numeros})*
+ws 			= \ |\n|\t|\r
 const   	= 0 | [1-9][0-9]*
 BoolLiteral = true | false
 
@@ -71,9 +71,10 @@ BoolLiteral = true | false
 "int"			{return symbol ("int"		, TIPO	 	, new Integer(INT));							}
 "String"		{return symbol ("String"	, TIPO 		, new Integer(STRING));							}
 "boolean"		{return symbol ("boolean"	, TIPO	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
+{ws} 			{}
 {id}        	{return symbol ("id"		, ID		, yytext());									} 
 {const}     	{return symbol ("const"		, CONST		, new Integer(Integer.parseInt(yytext())));		} 
-{ws}            {/* nenhuma ação - ignorar espaços */  }
+\"              {string.setLength(0); yybegin(STRING); 													}
 "("        		{return symbol ("("			, AP);														}
 ")"        		{return symbol (")"			, FP);														}
 "{"       		{return symbol ("{"			, AC);														}
@@ -96,7 +97,7 @@ BoolLiteral = true | false
 "||"            {return symbol ("||"		, OU		, new Integer(OU));								}
 }
 <STRING> { /* para leitura de uma string */
-  \" { yybegin(STRING); 
+  \" { yybegin(YYINITIAL); 
       return symbol("cadeia",CADEIA,string.toString(),string.length()); }
   [^\n\r\"\\]+ { string.append( yytext() ); }
   \\t          { string.append('\t'); }

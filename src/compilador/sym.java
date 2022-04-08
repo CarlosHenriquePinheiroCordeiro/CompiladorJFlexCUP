@@ -10,18 +10,18 @@ public interface sym {
   /* terminals */
   public static final int AC = 17;
   public static final int MULT = 24;
-  public static final int TIPO = 40;
+  public static final int TIPO = 39;
   public static final int CONST = 37;
   public static final int SOMA = 22;
   public static final int MENORQ = 30;
   public static final int MAIORQ = 29;
   public static final int ATT = 26;
-  public static final int CADEIA = 41;
+  public static final int CADEIA = 40;
   public static final int PRIVATE = 12;
   public static final int MENORI = 32;
   public static final int INT = 7;
   public static final int ARRAY = 21;
-  public static final int ERRO = 39;
+  public static final int ERRO = 38;
   public static final int MAIORI = 31;
   public static final int VIRGULA = 20;
   public static final int E = 34;
@@ -42,7 +42,6 @@ public interface sym {
   public static final int DIF = 28;
   public static final int VOID = 10;
   public static final int PROTECTED = 13;
-  public static final int WS = 38;
   public static final int FLOAT = 5;
   public static final int PUBLIC = 11;
   public static final int STRING = 8;
@@ -89,7 +88,6 @@ public interface sym {
   "OU",
   "ID",
   "CONST",
-  "WS",
   "ERRO",
   "TIPO",
   "CADEIA"
