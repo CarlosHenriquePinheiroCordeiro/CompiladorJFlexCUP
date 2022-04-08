@@ -42,6 +42,7 @@ public interface sym {
   public static final int DIF = 28;
   public static final int VOID = 10;
   public static final int PROTECTED = 13;
+  public static final int WS = 41;
   public static final int FLOAT = 5;
   public static final int PUBLIC = 11;
   public static final int STRING = 8;
@@ -90,7 +91,8 @@ public interface sym {
   "CONST",
   "ERRO",
   "TIPO",
-  "CADEIA"
+  "CADEIA",
+  "WS"
   };
 }
 

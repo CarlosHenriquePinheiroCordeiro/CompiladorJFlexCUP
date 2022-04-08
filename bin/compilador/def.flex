@@ -50,7 +50,7 @@ import java_cup.runtime.ComplexSymbolFactory.Location;
 letras  	= [a-zA-Z]
 numeros 	= [0-9]
 id      	= {letras}({letras}|{numeros})*
-ws 			= \ |\n|\t|\r
+ws 			= [\ \n\t\r]+
 const   	= 0 | [1-9][0-9]*
 BoolLiteral = true | false
 
