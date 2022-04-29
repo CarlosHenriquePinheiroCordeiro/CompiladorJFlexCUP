@@ -71,14 +71,8 @@ public class TelaCompilador {
 		btnCodigo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Scanner in = new Scanner(new FileReader("codigo.txt"));
-					String arquivo = "";
-					while (in.hasNextLine()) {
-					    String line = in.nextLine();
-					    arquivo += line;
-					}
 					Analise analise = new Analise();
-					saidaResultado.setText(analise.analiseCompleta(arquivo));
+					saidaResultado.setText(analise.analiseCompleta());
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

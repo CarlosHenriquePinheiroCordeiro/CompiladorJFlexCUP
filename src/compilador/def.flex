@@ -50,7 +50,7 @@ import java_cup.runtime.ComplexSymbolFactory.Location;
 letras  	= [a-zA-Z]
 numeros 	= [0-9]
 id      	= {letras}({letras}|{numeros})*
-ws 			= [\ \n\t\r]+
+ws 			= [ \n\t\r\f]+
 const   	= 0 | [1-9][0-9]*
 BoolLiteral = true | false
 
@@ -60,18 +60,18 @@ BoolLiteral = true | false
 /* regras de tradução - tokens */
 "//".*      {/* ignorar comentários */}
 <YYINITIAL> {
-"program"		{return symbol ("program"	, PROGRAM);													}
-"void"			{return symbol ("void"		, VOID);													}
+"program"		{return symbol ("program"   , PROGRAM);													}
+"void"			{return symbol ("void"	    , VOID);													}
 "public"		{return symbol ("public"	, PUBLIC); 													}
 "private"		{return symbol ("private"	, PRIVATE);													}
-"protected"		{return symbol ("protected"	, PROTECTED);												}
-"return"		{return symbol ("return"	, RETURN   );												}
+"protected"		{return symbol ("protected" , PROTECTED);												}
+"return"		{return symbol ("return"    , RETURN   );												}
 "if"			{return symbol ("if"		, IF	   );												}
-"float"			{return symbol ("float"		, TIPO	 	, new Integer(FLOAT));							}
 "int"			{return symbol ("int"		, TIPO	 	, new Integer(INT));							}
+"float"			{return symbol ("float"		, TIPO	 	, new Integer(FLOAT));							}
 "String"		{return symbol ("String"	, TIPO 		, new Integer(STRING));							}
 "boolean"		{return symbol ("boolean"	, TIPO	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
-{ws} 			{}
+{ws} 			{ }
 {id}        	{return symbol ("id"		, ID		, yytext());									} 
 {const}     	{return symbol ("const"		, CONST		, new Integer(Integer.parseInt(yytext())));		} 
 \"              {string.setLength(0); yybegin(STRING); 													}
@@ -81,7 +81,7 @@ BoolLiteral = true | false
 "}"       		{return symbol ("}"			, FC);														}
 ","   			{return symbol (","			, VIRGULA);													}
 "[]"			{return symbol ("[]"		, ARRAY);													}
-"="         	{return symbol ("="			, ATT);													}
+"="         	{return symbol ("="			, ATT);													    }
 "+"         	{return symbol ("soma"		, SOMA		, SOMA	, new Integer(SOMA));					} 	 
 "-"         	{return symbol ("sub"		, SUB		, SUB	, new Integer(SUB));					}
 "*"         	{return symbol ("mult"		, MULT		, MULT	, new Integer(MULT));					} 

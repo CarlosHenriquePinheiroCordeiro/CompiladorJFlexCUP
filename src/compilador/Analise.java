@@ -1,5 +1,7 @@
 package compilador;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Scanner;
@@ -22,15 +24,15 @@ public class Analise {
 		return retorno;
 	}
 	
-	public String analiseCompleta(String codigo) {
+	public String analiseCompleta() {
 		String retorno = "";
 		try {
+			BufferedReader bf        = new BufferedReader(new FileReader("codigo.txt"));
             ComplexSymbolFactory csf = new ComplexSymbolFactory();
-            Reader entrada = new StringReader(codigo);
-            Lexico lex = new Lexico(entrada,csf);
-            Parser p = new Parser(lex, csf);
-            Symbol i = p.parse();;
-            retorno =sym.terminalNames[i.sym];
+            Lexico lex = new Lexico(bf, csf);
+            Parser p   = new Parser(lex, csf);
+            Symbol i   = p.parse();
+            retorno    = sym.terminalNames[i.sym];
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
