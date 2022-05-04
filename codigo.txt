@@ -1,3 +1,27 @@
 program hello(int abc) {
-	a = true
+
+	//Código teste
+	boolean verdade = true;
+	int numero  = 1;
+	int numero2 = numero + 1;
+	if (verdade) {
+		numero  = numero2 + 1;
+		verdade = false;
+	}
+	if (numero != 2 && !verdade) {
+		aumenta(numero);
+	}
+
+	vazio();
+		
+	public int aumenta(int numero) {
+		numero = numero + 1;
+		return numero;
+	}
+
+	public void vazio() {
+		String teste = "Função vazia";
+	}
+	
+	
 }
