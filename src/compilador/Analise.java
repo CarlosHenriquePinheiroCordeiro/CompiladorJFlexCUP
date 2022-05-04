@@ -34,7 +34,7 @@ public class Analise {
             Symbol i   = p.parse();
             retorno    = sym.terminalNames[i.sym];
 		} catch (Exception e) {
-			e.printStackTrace();
+			retorno = "Erro de sintaxe no programa!";
 		}
 		return retorno;
 	}

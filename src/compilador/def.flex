@@ -79,6 +79,7 @@ BoolLiteral = true | false
 ")"        		{return symbol (")"			, FP);														}
 "{"       		{return symbol ("{"			, AC);														}
 "}"       		{return symbol ("}"			, FC);														}
+";"   			{return symbol (";"			, PONTO_VIRGULA);											}
 ","   			{return symbol (","			, VIRGULA);													}
 "[]"			{return symbol ("[]"		, ARRAY);													}
 "="         	{return symbol ("="			, ATT);													    }
