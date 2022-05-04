@@ -23,12 +23,30 @@ parser code
     
 :};
 
-terminal PROGRAM, IF, TRUE, FLOAT, FALSE, INT, STRING, BOOL, VOID, PUBLIC, PRIVATE, PROTECTED, 
-		 RETURN, AP, FP, AC, FC, ASP, PONTO_VIRGULA, VIRGULA, ARRAY, SOMA, SUB, MULT, DIV, ATT, IGUAL, DIF, MAIORQ, 
-		 MENORQ, MAIORI, MENORI, NAO, E, OU, ID, CONST, ERRO, TIPO, CADEIA, WS;
+terminal PROGRAM      , IF     , TRUE  , FLOAT  , FALSE  , INT      , 
+         STRING       , BOOL   , VOID  , PUBLIC , PRIVATE, PROTECTED, 
+         RETURN       , AP     , FP    , AC     , FC     , ASP      , 
+         PONTO_VIRGULA, VIRGULA, ARRAY , SOMA   , SUB    , MULT     , 
+         DIV          , ATT    , IGUAL , DIF    , MAIORQ , MENORQ   , 
+         MAIORI       , MENORI , NAO   , E      , OU     , ID       , 
+         CONST        , ERRO   , TIPO  , CADEIA , WS;
 
-non terminal PROGRAMA, LISTA_VAR, VAR, TERMO, PARAMETRO, OPERADOR_ARIT, OPERADOR_BOOL, EXPRESSAO, SCOPE, FUNCAO, 
-			 CALL_FUNC, ESTRUTURA, SELECAO, BLOCO, TIPO_RETORNO, RETORNO;
+non terminal PROGRAMA;
+non terminal LISTA_VAR;
+non terminal VAR;
+non terminal TERMO;
+non terminal PARAMETRO;
+non terminal OPERADOR_ARIT;
+non terminal OPERADOR_BOOL;
+non terminal EXPRESSAO;
+non terminal SCOPE;
+non terminal FUNCAO;
+non terminal CALL_FUNC;
+non terminal ESTRUTURA;
+non terminal SELECAO;
+non terminal BLOCO;
+non terminal TIPO_RETORNO;
+non terminal RETORNO;
 
 PROGRAMA ::= PROGRAM ID AP LISTA_VAR FP AC BLOCO FC;
 
