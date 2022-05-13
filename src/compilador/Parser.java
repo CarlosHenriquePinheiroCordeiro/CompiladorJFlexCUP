@@ -241,35 +241,24 @@ public class Parser extends java_cup.runtime.lr_parser {
     return action_obj.CUP$Parser$do_action(act_num, parser, stack, top);
   }
 
-  /** Indicates start state. */
-  public int start_state() {return 0;}
-  /** Indicates start production. */
-  public int start_production() {return 1;}
+  	/** Indicates start state. */
+  	public int start_state() {return 0;}
+  	/** Indicates start production. */
+  	public int start_production() {return 1;}
 
-  /** <code>EOF</code> Symbol index. */
-  public int EOF_sym() {return 0;}
+  	/** <code>EOF</code> Symbol index. */
+  	public int EOF_sym() {return 0;}
 
-  /** <code>error</code> Symbol index. */
-  public int error_sym() {return 1;}
+  	/** <code>error</code> Symbol index. */
+  	public int error_sym() {return 1;}
 
-
-
-    // colocar funções que serão geradas no código
-    // exemplo - tratamento de erros sintáticos
-    public void syntax_error(Symbol s){
-        String strErro = "Erro de sintaxe. Linha: " + (s.right + 1) +
-            " Coluna: " + s.left + ". Texto: \"" + s.value + "\"" + " \n Token Encontrado: " + sym.terminalNames[s.sym] + " state " + s.parse_state;
-        
-        report_error(strErro, null); 
-        
-    }
-    public void semantico(Object tk){
-       System.out.println("Semântico....");
-    }
-
-
-    
-
+	public void syntax_error(Symbol s){
+	    Excecao.erroSintatico(sym.terminalNames[s.sym], s.value, s.right + 1, s.left);
+	}
+	
+	public void semantico(Object tk){
+	   System.out.println("Semântico....");
+	}
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})

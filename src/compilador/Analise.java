@@ -1,6 +1,7 @@
 package compilador;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
 import java.io.StringReader;
@@ -24,20 +25,29 @@ public class Analise {
 		return retorno;
 	}
 	
-	public String analiseCompleta() {
+	public String analiseCodigoTxt() throws FileNotFoundException {
+		BufferedReader bf = new BufferedReader(new FileReader("codigo.txt"));
+		return analiseCompleta(bf);
+	}
+	
+	public String analiseCodigoDigitado(String programa) {
+		Reader inputString = new StringReader(programa);
+		return analiseCompleta(new BufferedReader(inputString));
+	}
+	
+	public String analiseCompleta(BufferedReader bf) {
 		String retorno = "";
 		try {
-			BufferedReader bf        = new BufferedReader(new FileReader("codigo.txt"));
             ComplexSymbolFactory csf = new ComplexSymbolFactory();
-            Lexico lex = new Lexico(bf, csf);
-            Parser p   = new Parser(lex, csf);
-            Symbol i   = p.parse();
-            retorno    = sym.terminalNames[i.sym];
+            Lexico lex 			     = new Lexico(bf, csf);
+            Parser p   				 = new Parser(lex, csf);
+            Symbol i   				 = p.parse();
+            retorno    				 = sym.terminalNames[i.sym];
 		} catch (Exception e) {
-			retorno = "Erro de sintaxe no programa!";
+			retorno = e.getMessage();
 		}
 		return retorno;
 	}
-	
-	
+
+
 }

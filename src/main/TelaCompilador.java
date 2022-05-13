@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 public class TelaCompilador {
 
@@ -48,39 +49,39 @@ public class TelaCompilador {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 817, 501);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel labelTitulo = new JLabel("Compilador");
-		labelTitulo.setBounds(184, 11, 103, 14);
+		labelTitulo.setBounds(373, 11, 103, 14);
 		frame.getContentPane().add(labelTitulo);
 		
 		campoToken = new JTextField();
-		campoToken.setBounds(10, 51, 138, 20);
+		campoToken.setBounds(10, 41, 138, 20);
 		frame.getContentPane().add(campoToken);
 		campoToken.setColumns(10);
 		
 		JLabel labelToken = new JLabel("Digite um Token:");
-		labelToken.setBounds(10, 35, 118, 14);
+		labelToken.setBounds(10, 25, 118, 14);
 		frame.getContentPane().add(labelToken);
 		
 		JTextPane saidaResultado = new JTextPane();
-		saidaResultado.setBounds(229, 51, 195, 199);
+		saidaResultado.setBounds(461, 132, 330, 319);
 		frame.getContentPane().add(saidaResultado);
 		
-		JButton btnCodigo = new JButton("Analisar c\u00F3digo pronto (txt)");
+		JButton btnCodigo = new JButton("Analisar c\u00F3digo pronto (codigo.txt)");
 		btnCodigo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Analise analise = new Analise();
-					saidaResultado.setText(analise.analiseCompleta());
+					saidaResultado.setText(analise.analiseCodigoTxt());
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		});
-		btnCodigo.setBounds(10, 208, 195, 42);
+		btnCodigo.setBounds(551, 27, 202, 49);
 		frame.getContentPane().add(btnCodigo);
 		
 		JButton btnAnaliseToken = new JButton("Analisar Token");
@@ -96,11 +97,35 @@ public class TelaCompilador {
 			}
 		});
 		
-		btnAnaliseToken.setBounds(10, 77, 138, 23);
+		btnAnaliseToken.setBounds(158, 40, 138, 23);
 		frame.getContentPane().add(btnAnaliseToken);
 		
 		JLabel lblNewLabel = new JLabel("Resultados:");
-		lblNewLabel.setBounds(299, 35, 90, 14);
+		lblNewLabel.setBounds(596, 98, 90, 14);
 		frame.getContentPane().add(lblNewLabel);
+		
+		JTextArea campoCodigo = new JTextArea();
+		campoCodigo.setBounds(10, 132, 368, 319);
+		frame.getContentPane().add(campoCodigo);
+		
+		JButton btnAnalisarProgramaDigitado = new JButton("Analisar programa digitado");
+		btnAnalisarProgramaDigitado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (campoCodigo.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Digite um programa para ser analisdo");
+				}
+				else {
+					Analise analise = new Analise();
+					saidaResultado.setText(analise.analiseCodigoDigitado(campoCodigo.getText()));
+				}
+			}
+		});
+		btnAnalisarProgramaDigitado.setBounds(158, 98, 220, 23);
+		frame.getContentPane().add(btnAnalisarProgramaDigitado);
+		
+		JLabel lblDigiteUmPrograma = new JLabel("Digite um programa:");
+		lblDigiteUmPrograma.setBounds(10, 98, 118, 14);
+		frame.getContentPane().add(lblDigiteUmPrograma);
+
 	}
 }
