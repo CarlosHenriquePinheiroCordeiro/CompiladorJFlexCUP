@@ -47,17 +47,20 @@ non terminal Funcao FUNCAO;
 non terminal CALL_FUNC;
 non terminal ESTRUTURA;
 non terminal SELECAO;
-non terminal BLOCO;
+non terminal Bloco BLOCO;
 non terminal TIPO_RETORNO;
 non terminal RETORNO;
 
-PROGRAMA ::= PROGRAM ID AP LISTA_VAR FP AC BLOCO FC;
+PROGRAMA ::= PROGRAM ID:id AP LISTA_VAR:listaVar FP AC BLOCO:bloco FC
+			{: 	RESULT = new Programa(id, listaVar, bloco); :};
 
-LISTA_VAR ::= LISTA_VAR VIRGULA VAR
-			| VAR
-			| ;
+LISTA_VAR ::= LISTA_VAR:listaVar VIRGULA VAR:var {: listaVar.add(var); RESULT = listaVar; :}
+			| VAR:v {: RESULT = new ArrayList<Var>(); RESULT.add(v); :}
+			| 
+			;
 
-VAR ::= TIPO ID;
+VAR ::= TIPO:tipo ID:id 
+	{: RESULT = new Var(tipo, id); :};
 
 TERMO ::= ID 
 		| NAO ID
