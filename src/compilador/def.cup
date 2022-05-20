@@ -3,6 +3,8 @@ package compilador;
 import java.io.*;
 import java_cup.runtime.*;
 import compilador.Lexico;
+import objetos.*;
+import java.util.ArrayList;
 
 parser code
 {:
@@ -46,7 +48,7 @@ non terminal CALL_FUNC;
 non terminal ESTRUTURA;
 non terminal SELECAO;
 non terminal BLOCO;
-non terminal Tipo TIPO_RETORNO;
+non terminal TIPO_RETORNO;
 non terminal RETORNO;
 
 PROGRAMA ::= PROGRAM ID AP LISTA_VAR FP AC BLOCO FC;
