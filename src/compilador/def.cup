@@ -31,21 +31,22 @@ terminal PROGRAM      , IF     , TRUE  , FLOAT  , FALSE  , INT      ,
          MAIORI       , MENORI , NAO   , E      , OU     , ID       , 
          CONST        , ERRO   , TIPO  , CADEIA , WS;
 
-non terminal PROGRAMA;
-non terminal LISTA_VAR;
-non terminal VAR;
+non terminal Programa PROGRAMA;
+non terminal ArrayList<Var> LISTA_VAR;
+non terminal Var VAR;
+non terminal Atribuicao ATRIBUICAO;
 non terminal TERMO;
 non terminal PARAMETRO;
 non terminal OPERADOR_ARIT;
 non terminal OPERADOR_BOOL;
 non terminal EXPRESSAO;
-non terminal SCOPE;
-non terminal FUNCAO;
+non terminal Escopo SCOPE;
+non terminal Funcao FUNCAO;
 non terminal CALL_FUNC;
 non terminal ESTRUTURA;
 non terminal SELECAO;
 non terminal BLOCO;
-non terminal TIPO_RETORNO;
+non terminal Tipo TIPO_RETORNO;
 non terminal RETORNO;
 
 PROGRAMA ::= PROGRAM ID AP LISTA_VAR FP AC BLOCO FC;
@@ -100,8 +101,10 @@ ESTRUTURA ::= SELECAO;
 
 SELECAO ::= IF AP EXPRESSAO FP AC BLOCO FC;
 
-BLOCO ::= VAR ATT EXPRESSAO PONTO_VIRGULA BLOCO
-		| ID ATT EXPRESSAO PONTO_VIRGULA BLOCO
+ATRIBUICAO ::= VAR ATT EXPRESSAO
+		| ID ATT EXPRESSAO;
+
+BLOCO ::= ATRIBUICAO PONTO_VIRGULA BLOCO
 		| EXPRESSAO PONTO_VIRGULA BLOCO 
 		| CALL_FUNC PONTO_VIRGULA BLOCO 
 		| FUNCAO BLOCO
