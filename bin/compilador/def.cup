@@ -3,24 +3,23 @@ package compilador;
 import java.io.*;
 import java_cup.runtime.*;
 import compilador.Lexico;
+import objetos.*;
+import java.util.ArrayList;
 
 parser code
 {:
-    // colocar funções que serão geradas no código
-    // exemplo - tratamento de erros sintáticos
+    private TabelaSimbolos tb = new TabelaSimbolos();
+    
     public void syntax_error(Symbol s){
         String strErro = "Erro de sintaxe. Linha: " + (s.right + 1) +
             " Coluna: " + s.left + ". Texto: \"" + s.value + "\"" + " \n Token Encontrado: " + sym.terminalNames[s.sym] + " state " + s.parse_state;
         
         report_error(strErro, null); 
-        
     }
-    public void semantico(Object tk){
-       System.out.println("Semântico....");
-    }
-
-
     
+    public TabelaSimbolos getTb() {
+    	return this.tb;
+	}
 :};
 
 terminal PROGRAM      , IF     , TRUE  , FLOAT  , FALSE  , INT      , 
@@ -39,23 +38,26 @@ non terminal TERMO;
 non terminal PARAMETRO;
 non terminal OPERADOR_ARIT;
 non terminal OPERADOR_BOOL;
-non terminal EXPRESSAO;
+non terminal Expressao EXPRESSAO;
 non terminal Escopo SCOPE;
 non terminal Funcao FUNCAO;
 non terminal CALL_FUNC;
 non terminal ESTRUTURA;
 non terminal SELECAO;
-non terminal BLOCO;
-non terminal Tipo TIPO_RETORNO;
+non terminal Bloco BLOCO;
+non terminal TIPO_RETORNO;
 non terminal RETORNO;
 
-PROGRAMA ::= PROGRAM ID AP LISTA_VAR FP AC BLOCO FC;
+PROGRAMA ::= PROGRAM ID:id AP LISTA_VAR:listaVar FP AC BLOCO:bloco FC
+			{: 	RESULT = new Programa(id, listaVar, bloco); :};
 
-LISTA_VAR ::= LISTA_VAR VIRGULA VAR
-			| VAR
-			| ;
+LISTA_VAR ::= LISTA_VAR:listaVar VIRGULA VAR:var {: listaVar.add(var); RESULT = listaVar; :}
+			| VAR:v {: RESULT = new ArrayList<Var>(); RESULT.add(v); :}
+			| 
+			;
 
-VAR ::= TIPO ID;
+VAR ::= TIPO:tipo ID:id 
+	{: RESULT = new Var(tipo, id); :};
 
 TERMO ::= ID 
 		| NAO ID
@@ -82,9 +84,9 @@ OPERADOR_BOOL ::= MAIORQ
 				| E
 				| OU;
 
-EXPRESSAO ::= TERMO 
-			| TERMO OPERADOR_ARIT EXPRESSAO
-			| TERMO OPERADOR_BOOL EXPRESSAO;
+EXPRESSAO ::= TERMO:termo {: RESULT = new Expressao(termo); :}
+			| TERMO:termo OPERADOR_ARIT:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :}
+			| TERMO:termo OPERADOR_BOOL:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :};
 
 SCOPE ::= PUBLIC 
 		| PRIVATE 
@@ -101,8 +103,8 @@ ESTRUTURA ::= SELECAO;
 
 SELECAO ::= IF AP EXPRESSAO FP AC BLOCO FC;
 
-ATRIBUICAO ::= VAR ATT EXPRESSAO
-		| ID ATT EXPRESSAO;
+ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: //validar tipo com tipoxright e tipoxleft ou varxright varxright ;:}
+		| ID:id ATT:opAtt EXPRESSAO:exp {:  ;:};
 
 BLOCO ::= ATRIBUICAO PONTO_VIRGULA BLOCO
 		| EXPRESSAO PONTO_VIRGULA BLOCO 

@@ -8,6 +8,9 @@ import java.util.ArrayList;
  */
 public class Programa {
 
+	/** Identificador do programa */
+	private Object id;
+	
 	/** Lista de parâmetros do programa */
 	private ArrayList<Var> parametros;
 	
@@ -16,14 +19,14 @@ public class Programa {
 	
 	/**
 	 * Construtor que inicia o programa
+	 * @param id identificador do programa
 	 * @param parametros parâmetros do programa
 	 * @param bloco bloco de execução do programa
 	 */
-	public Programa(ArrayList<Var> parametros, Bloco bloco) {
+	public Programa(Object id, ArrayList<Var> parametros, Bloco bloco) {
+		this.id = id;
 		this.parametros = parametros;
 		this.bloco = bloco;
-		System.out.println("LISTA_VAR: "+parametros);
-		System.out.println("BLOCO: "+bloco);
 	}
 
 

@@ -6,6 +6,40 @@ package objetos;
  *
  */
 public class Var {
+
+	/** Tipo da variável */
+	private Object tipo;
+
+	/** Identificador da variável */
+	private Object id;
+
+	public Var() {}
 	
-	
+	/**
+	 * Construtor que inicializa a variável
+	 * @param tipo tipo da variável
+	 * @param id identificador da variável
+	 */
+	public Var(Object tipo, Object id) {
+		this.tipo = tipo;
+		this.id = id;
+	}
+
+	public Object getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Object tipo) {
+		this.tipo = tipo;
+	}
+
+	public Object getId() {
+		return id;
+	}
+
+	public void setId(Object id) {
+		this.id = id;
+	}
+
+
 }

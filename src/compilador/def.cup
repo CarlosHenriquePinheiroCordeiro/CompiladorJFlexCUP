@@ -8,21 +8,18 @@ import java.util.ArrayList;
 
 parser code
 {:
-    // colocar funções que serão geradas no código
-    // exemplo - tratamento de erros sintáticos
+    private TabelaSimbolos tb = new TabelaSimbolos();
+    
     public void syntax_error(Symbol s){
         String strErro = "Erro de sintaxe. Linha: " + (s.right + 1) +
             " Coluna: " + s.left + ". Texto: \"" + s.value + "\"" + " \n Token Encontrado: " + sym.terminalNames[s.sym] + " state " + s.parse_state;
         
         report_error(strErro, null); 
-        
     }
-    public void semantico(Object tk){
-       System.out.println("Semântico....");
-    }
-
-
     
+    public TabelaSimbolos getTb() {
+    	return this.tb;
+	}
 :};
 
 terminal PROGRAM      , IF     , TRUE  , FLOAT  , FALSE  , INT      , 
@@ -41,7 +38,7 @@ non terminal TERMO;
 non terminal PARAMETRO;
 non terminal OPERADOR_ARIT;
 non terminal OPERADOR_BOOL;
-non terminal EXPRESSAO;
+non terminal Expressao EXPRESSAO;
 non terminal Escopo SCOPE;
 non terminal Funcao FUNCAO;
 non terminal CALL_FUNC;
@@ -87,9 +84,9 @@ OPERADOR_BOOL ::= MAIORQ
 				| E
 				| OU;
 
-EXPRESSAO ::= TERMO 
-			| TERMO OPERADOR_ARIT EXPRESSAO
-			| TERMO OPERADOR_BOOL EXPRESSAO;
+EXPRESSAO ::= TERMO:termo {: RESULT = new Expressao(termo); :}
+			| TERMO:termo OPERADOR_ARIT:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :}
+			| TERMO:termo OPERADOR_BOOL:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :};
 
 SCOPE ::= PUBLIC 
 		| PRIVATE 
@@ -106,8 +103,8 @@ ESTRUTURA ::= SELECAO;
 
 SELECAO ::= IF AP EXPRESSAO FP AC BLOCO FC;
 
-ATRIBUICAO ::= VAR ATT EXPRESSAO
-		| ID ATT EXPRESSAO;
+ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: //validar tipo com tipoxright e tipoxleft ou varxright varxright ;:}
+		| ID:id ATT:opAtt EXPRESSAO:exp {:  ;:};
 
 BLOCO ::= ATRIBUICAO PONTO_VIRGULA BLOCO
 		| EXPRESSAO PONTO_VIRGULA BLOCO 
