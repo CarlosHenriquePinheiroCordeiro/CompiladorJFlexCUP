@@ -30,6 +30,7 @@ terminal PROGRAM      , IF     , TRUE  , FLOAT  , FALSE  , INT      ,
          MAIORI       , MENORI , NAO   , E      , OU     , ID       , 
          CONST        , ERRO   , TIPO  , CADEIA , WS;
 
+non terminal PROGRAMA_ESCOPO;
 non terminal Programa PROGRAMA;
 non terminal ArrayList<Var> LISTA_VAR;
 non terminal Var VAR;
@@ -44,22 +45,26 @@ non terminal Funcao FUNCAO;
 non terminal CALL_FUNC;
 non terminal ESTRUTURA;
 non terminal SELECAO;
+non terminal ABRE_BLOCO;
 non terminal Bloco BLOCO;
 non terminal TIPO_RETORNO;
 non terminal RETORNO;
 
-PROGRAMA ::= PROGRAM ID:id AP LISTA_VAR:listaVar FP AC BLOCO:bloco FC
+PROGRAMA ::= PROGRAMA_ESCOPO ID:id AP LISTA_VAR:listaVar FP AC BLOCO:bloco FC
 			{: 	RESULT = new Programa(id, listaVar, bloco); :};
 
+PROGRAMA_ESCOPO ::= PROGRAM {: getTb().novoEscopo(); :};
+
 LISTA_VAR ::= LISTA_VAR:listaVar VIRGULA VAR:var {: listaVar.add(var); RESULT = listaVar; :}
-			| VAR:v {: RESULT = new ArrayList<Var>(); RESULT.add(v); :}
+			| VAR:v {: RESULT = new ArrayList<Var>(); RESULT.add(v); getTb().novoSimbolo(v.getId(), v.getTipo()); :}
 			| 
 			;
 
 VAR ::= TIPO:tipo ID:id 
 	{: RESULT = new Var(tipo, id); :};
 
-TERMO ::= ID 
+TERMO ::= VAR
+		| ID 
 		| NAO ID
 		| CADEIA
 		| CONST 
@@ -95,23 +100,25 @@ SCOPE ::= PUBLIC
 TIPO_RETORNO ::= TIPO
 			   | VOID;
 
-FUNCAO ::= SCOPE TIPO_RETORNO ID AP LISTA_VAR FP AC BLOCO RETORNO FC;
+FUNCAO ::= SCOPE TIPO_RETORNO ID AP LISTA_VAR FP ABRE_BLOCO BLOCO RETORNO FC;
 
 CALL_FUNC ::= ID AP PARAMETRO FP;
 
 ESTRUTURA ::= SELECAO;
 
-SELECAO ::= IF AP EXPRESSAO FP AC BLOCO FC;
+SELECAO ::= IF AP EXPRESSAO FP ABRE_BLOCO BLOCO FC;
 
 ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: //validar tipo com tipoxright e tipoxleft ou varxright varxright ;:}
 		| ID:id ATT:opAtt EXPRESSAO:exp {:  ;:};
+
+ABRE_BLOCO ::= AC {: getTb().novoEscopo(); :};
 
 BLOCO ::= ATRIBUICAO PONTO_VIRGULA BLOCO
 		| EXPRESSAO PONTO_VIRGULA BLOCO 
 		| CALL_FUNC PONTO_VIRGULA BLOCO 
 		| FUNCAO BLOCO
 		| ESTRUTURA BLOCO
-		| ;
+		| {: getTb().fimEscopo(); :};
 
 RETORNO ::= RETURN EXPRESSAO PONTO_VIRGULA
 		  | RETURN CALL_FUNC PONTO_VIRGULA

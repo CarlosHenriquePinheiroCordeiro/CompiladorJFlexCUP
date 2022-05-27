@@ -6,7 +6,8 @@ import java.util.Hashtable;
 public class TabelaSimbolos {
 
 	private Stack<Hashtable<Object, Simbolo>> tabela = new Stack<Hashtable<Object, Simbolo>>();
-
+	private int escopo = 0;
+	
 	/**
 	 * Retorna a tabela de símbolos
 	 * @return tabela de símbolos
@@ -35,7 +36,6 @@ public class TabelaSimbolos {
 	public boolean novoSimbolo(Object simbolo, Object tipo) {
 		if (!existeSimbolo(simbolo)) {
 			addSimbolo(simbolo, new Simbolo(tipo));
-			
 		}
 		return true;
 	}
@@ -46,6 +46,7 @@ public class TabelaSimbolos {
 	 * @param simbolo
 	 */
 	public void addSimbolo(Object chaveSimbolo, Simbolo simbolo) {
+		System.out.println(chaveSimbolo+" - ESCOPO: "+escopo);
 		getTabela().peek().put(chaveSimbolo, simbolo);
 	}
 
@@ -62,6 +63,7 @@ public class TabelaSimbolos {
 	 * Adiciona um novo escopo para a tabela de símbolos
 	 */
 	public void novoEscopo() {
+		escopo++;
 		getTabela().push(new Hashtable<Object, Simbolo>());
 	}
 
@@ -69,6 +71,7 @@ public class TabelaSimbolos {
 	 * Remove o escopo atual da tabela de símbolos
 	 */
 	public void fimEscopo() {
+		escopo--;
 		getTabela().pop();
 	}
 
