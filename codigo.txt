@@ -1,4 +1,6 @@
 program hello(int abc) {
-	if (erro) {
+	float escopoLimitado = 1.10;
+	if (abc) {
+	
 	}
 }

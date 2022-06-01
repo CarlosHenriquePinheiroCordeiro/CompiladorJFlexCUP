@@ -51,7 +51,7 @@ letras  	= [a-zA-Z]
 numeros 	= [0-9]
 id      	= {letras}({letras}|{numeros})*
 ws 			= [ \n\t\r\f]+
-const   	= 0 | [1-9][0-9]*
+const   	= [0-9]*|([0-9]*\.[0-9]*)
 
 %state STRING
 

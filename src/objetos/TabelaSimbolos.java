@@ -1,6 +1,9 @@
 package objetos;
 
 import java.util.Stack;
+
+import compilador.sym;
+
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +33,16 @@ public class TabelaSimbolos {
 			return true;
 		}
 		throw new RuntimeException("Erro Semântico: Variável "+simbolo+" não declarada");
+	}
+	
+	public int verificaTipoValor(Object valor) {
+		if (String.valueOf(valor).matches("0|[1-9][0-9]*")) {
+			return sym.INT;
+		}
+		if (String.valueOf(valor).matches("[0-9]*\\.[0-9]*")) {
+			return sym.FLOAT;
+		}
+		return 0;
 	}
 
 	/**
