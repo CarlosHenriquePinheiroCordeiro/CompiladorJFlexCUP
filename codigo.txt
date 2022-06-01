@@ -1,3 +1,7 @@
 program hello(int abc) {
-	
+	int acb = 1;
+	acb = abc;
+	if (acb) {
+		
+	}
 }

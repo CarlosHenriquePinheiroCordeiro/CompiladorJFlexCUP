@@ -1,9 +1,15 @@
 package objetos;
 
 public class Simbolo {
-
+	
+	/** Tipo do Símbolo */
 	private Object tipo;
+	
+	/** Valor do Símbolo */
 	private Object valor;
+	
+	/** Indica se o Símbolo foi usado ou não */
+	private boolean usado = false;
 
 	public Simbolo() {}
 	
@@ -30,6 +36,14 @@ public class Simbolo {
 
 	public void setValor(Object valor) {
 		this.valor = valor;
+	}
+
+	public boolean isUsado() {
+		return usado;
+	}
+
+	public void setUsado(boolean usado) {
+		this.usado = usado;
 	}
 
 

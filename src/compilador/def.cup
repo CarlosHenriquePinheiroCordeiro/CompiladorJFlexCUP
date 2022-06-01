@@ -56,15 +56,14 @@ PROGRAMA ::= PROGRAMA_ESCOPO ID:id AP LISTA_VAR:listaVar FP AC BLOCO:bloco FC
 PROGRAMA_ESCOPO ::= PROGRAM {: getTb().novoEscopo(); :};
 
 LISTA_VAR ::= LISTA_VAR:listaVar VIRGULA VAR:var {: listaVar.add(var); RESULT = listaVar; :}
-			| VAR:v {: RESULT = new ArrayList<Var>(); RESULT.add(v); getTb().novoSimbolo(v.getId(), v.getTipo()); :}
+			| VAR:v {: RESULT = new ArrayList<Var>(); RESULT.add(v); :}
 			| 
 			;
 
 VAR ::= TIPO:tipo ID:id 
-	{: RESULT = new Var(tipo, id); :};
+	{: RESULT = new Var(tipo, id); getTb().novoSimbolo(id, tipo); :};
 
-TERMO ::= VAR
-		| ID 
+TERMO ::= ID 
 		| NAO ID
 		| CADEIA
 		| CONST 
@@ -89,9 +88,9 @@ OPERADOR_BOOL ::= MAIORQ
 				| E
 				| OU;
 
-EXPRESSAO ::= TERMO:termo {: RESULT = new Expressao(termo); :}
-			| TERMO:termo OPERADOR_ARIT:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :}
-			| TERMO:termo OPERADOR_BOOL:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :};
+EXPRESSAO ::= TERMO:termo {: RESULT = new Expressao(termo); getTb().verificaUsaSimbolo(termo); :}
+			| TERMO:termo OPERADOR_ARIT:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); getTb().verificaUsaSimbolo(termo); :}
+			| TERMO:termo OPERADOR_BOOL:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); getTb().verificaUsaSimbolo(termo); :};
 
 SCOPE ::= PUBLIC 
 		| PRIVATE 
@@ -113,7 +112,8 @@ ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: //validar tipo com tipoxright 
 
 ABRE_BLOCO ::= AC {: getTb().novoEscopo(); :};
 
-BLOCO ::= ATRIBUICAO PONTO_VIRGULA BLOCO
+BLOCO ::= VAR PONTO_VIRGULA BLOCO
+		| ATRIBUICAO PONTO_VIRGULA BLOCO
 		| EXPRESSAO PONTO_VIRGULA BLOCO 
 		| CALL_FUNC PONTO_VIRGULA BLOCO 
 		| FUNCAO BLOCO

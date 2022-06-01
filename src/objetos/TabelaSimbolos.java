@@ -2,6 +2,9 @@ package objetos;
 
 import java.util.Stack;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class TabelaSimbolos {
 
@@ -24,9 +27,9 @@ public class TabelaSimbolos {
 	 */
 	public boolean atribuiValor(Object simbolo, Object valor) {
 		if (existeSimbolo(simbolo)) {
-			
+			return true;
 		}
-		return true;
+		throw new RuntimeException("Erro Semântico: Variável "+simbolo+" não declarada");
 	}
 
 	/**
@@ -36,8 +39,9 @@ public class TabelaSimbolos {
 	public boolean novoSimbolo(Object simbolo, Object tipo) {
 		if (!existeSimbolo(simbolo)) {
 			addSimbolo(simbolo, new Simbolo(tipo));
+			return true;
 		}
-		return true;
+		throw new RuntimeException("Erro Semântico: Variável "+simbolo+" já foi declarada e está se tentando declará-la novamente.");
 	}
 
 	/**
@@ -46,7 +50,6 @@ public class TabelaSimbolos {
 	 * @param simbolo
 	 */
 	public void addSimbolo(Object chaveSimbolo, Simbolo simbolo) {
-		System.out.println(chaveSimbolo+" - ESCOPO: "+escopo);
 		getTabela().peek().put(chaveSimbolo, simbolo);
 	}
 
@@ -56,14 +59,18 @@ public class TabelaSimbolos {
 	 * @return True = existe, False = não existe
 	 */
 	public boolean existeSimbolo(Object simbolo) {
-		return getTabela().peek().containsKey(simbolo);
+		for (int i = 0; i < getTabela().size(); i++) {
+			if (getTabela().get(i).containsKey(simbolo)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
 	 * Adiciona um novo escopo para a tabela de símbolos
 	 */
 	public void novoEscopo() {
-		escopo++;
 		getTabela().push(new Hashtable<Object, Simbolo>());
 	}
 
@@ -71,8 +78,30 @@ public class TabelaSimbolos {
 	 * Remove o escopo atual da tabela de símbolos
 	 */
 	public void fimEscopo() {
-		escopo--;
+		verificaSimbolosNaoUtilizados();
 		getTabela().pop();
+	}
+	
+	public void verificaSimbolosNaoUtilizados() {
+		getTabela().peek().forEach((k, v) -> {
+			if (!v.isUsado()) {
+				System.out.println("Aviso: Variável "+k+" declarada mas não utilizada.");
+			}
+		});
+	}
+	
+	public void verificaUsaSimbolo(Object termo) {
+		if (isVariavel(termo)) {
+			if (existeSimbolo(termo)) {
+				
+			} else {
+				throw new RuntimeException("Erro Semântico: Variável  "+termo+" não declarada.");
+			}
+		}
+	}
+	
+	public boolean isVariavel(Object termo) {
+		return true;
 	}
 
 
