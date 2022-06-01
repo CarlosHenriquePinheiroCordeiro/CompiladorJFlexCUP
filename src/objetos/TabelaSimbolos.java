@@ -66,6 +66,21 @@ public class TabelaSimbolos {
 		}
 		return false;
 	}
+	
+	/**
+	 * Procura um símbolo na tabela e o retorna
+	 * @param simbolo
+	 * @return Símbolo encontrado
+	 */
+	public Simbolo getSimbolo(Object simbolo) {
+		Simbolo Simbolo = null;
+		for (int i = 0; i < getTabela().size(); i++) {
+			if (getTabela().get(i).containsKey(simbolo)) {
+				Simbolo = getTabela().get(i).get(simbolo);
+			}
+		}
+		return Simbolo;
+	}
 
 	/**
 	 * Adiciona um novo escopo para a tabela de símbolos
@@ -82,6 +97,9 @@ public class TabelaSimbolos {
 		getTabela().pop();
 	}
 	
+	/**
+	 * Verifica os símbolos que não foram utilizados
+	 */
 	public void verificaSimbolosNaoUtilizados() {
 		getTabela().peek().forEach((k, v) -> {
 			if (!v.isUsado()) {
@@ -90,18 +108,16 @@ public class TabelaSimbolos {
 		});
 	}
 	
+	/**
+	 * Verifica se um símbolo está sendo utilizado. Se for o caso, marca como utilizado
+	 * @param termo
+	 */
 	public void verificaUsaSimbolo(Object termo) {
-		if (isVariavel(termo)) {
-			if (existeSimbolo(termo)) {
-				
-			} else {
-				throw new RuntimeException("Erro Semântico: Variável  "+termo+" não declarada.");
-			}
+		if (existeSimbolo(termo)) {
+			getSimbolo(termo).setUsado(true);
+		} else {
+			throw new RuntimeException("Erro Semântico: Variável  "+termo+" não declarada.");
 		}
-	}
-	
-	public boolean isVariavel(Object termo) {
-		return true;
 	}
 
 

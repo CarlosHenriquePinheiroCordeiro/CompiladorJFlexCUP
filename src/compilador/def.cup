@@ -34,6 +34,7 @@ non terminal PROGRAMA_ESCOPO;
 non terminal Programa PROGRAMA;
 non terminal ArrayList<Var> LISTA_VAR;
 non terminal Var VAR;
+non terminal IDENTIFICADOR;
 non terminal Atribuicao ATRIBUICAO;
 non terminal TERMO;
 non terminal PARAMETRO;
@@ -63,12 +64,14 @@ LISTA_VAR ::= LISTA_VAR:listaVar VIRGULA VAR:var {: listaVar.add(var); RESULT = 
 VAR ::= TIPO:tipo ID:id 
 	{: RESULT = new Var(tipo, id); getTb().novoSimbolo(id, tipo); :};
 
-TERMO ::= ID 
-		| NAO ID
+IDENTIFICADOR ::= ID:id {: getTb().verificaUsaSimbolo(id); :};
+
+TERMO ::= TRUE
+		| FALSE
+		| IDENTIFICADOR 
+		| NAO IDENTIFICADOR
 		| CADEIA
-		| CONST 
-		| TRUE 
-		| FALSE;
+		| CONST;
 
 PARAMETRO ::= TERMO 
 			| TERMO VIRGULA PARAMETRO
@@ -88,9 +91,9 @@ OPERADOR_BOOL ::= MAIORQ
 				| E
 				| OU;
 
-EXPRESSAO ::= TERMO:termo {: RESULT = new Expressao(termo); getTb().verificaUsaSimbolo(termo); :}
-			| TERMO:termo OPERADOR_ARIT:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); getTb().verificaUsaSimbolo(termo); :}
-			| TERMO:termo OPERADOR_BOOL:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); getTb().verificaUsaSimbolo(termo); :};
+EXPRESSAO ::= TERMO:termo {: RESULT = new Expressao(termo); :}
+			| TERMO:termo OPERADOR_ARIT:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :}
+			| TERMO:termo OPERADOR_BOOL:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :};
 
 SCOPE ::= PUBLIC 
 		| PRIVATE 
@@ -108,7 +111,7 @@ ESTRUTURA ::= SELECAO;
 SELECAO ::= IF AP EXPRESSAO FP ABRE_BLOCO BLOCO FC;
 
 ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: //validar tipo com tipoxright e tipoxleft ou varxright varxright ;:}
-		| ID:id ATT:opAtt EXPRESSAO:exp {:  ;:};
+		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {:  ;:};
 
 ABRE_BLOCO ::= AC {: getTb().novoEscopo(); :};
 

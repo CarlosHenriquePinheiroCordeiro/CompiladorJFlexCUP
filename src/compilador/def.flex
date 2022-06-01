@@ -52,7 +52,6 @@ numeros 	= [0-9]
 id      	= {letras}({letras}|{numeros})*
 ws 			= [ \n\t\r\f]+
 const   	= 0 | [1-9][0-9]*
-BoolLiteral = true | false
 
 %state STRING
 
@@ -71,6 +70,8 @@ BoolLiteral = true | false
 "float"			{return symbol ("float"		, TIPO	 	, new Integer(FLOAT));							}
 "String"		{return symbol ("String"	, TIPO 		, new Integer(STRING));							}
 "boolean"		{return symbol ("boolean"	, TIPO	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
+"true"			{return symbol ("true"		, TRUE	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
+"false"			{return symbol ("false"		, FALSE	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
 {ws} 			{ }
 {id}        	{return symbol ("id"		, ID		, yytext());									} 
 {const}     	{return symbol ("const"		, CONST		, new Integer(Integer.parseInt(yytext())));		} 
