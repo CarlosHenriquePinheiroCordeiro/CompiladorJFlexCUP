@@ -51,7 +51,8 @@ letras  	= [a-zA-Z]
 numeros 	= [0-9]
 id      	= {letras}({letras}|{numeros})*
 ws 			= [ \n\t\r\f]+
-const   	= [0-9]*|([0-9]*\.[0-9]*)
+const   	= 0|[1-9][0-9]*
+flutuante   = ({const})\.?{numeros}*
 
 %state STRING
 
@@ -74,7 +75,8 @@ const   	= [0-9]*|([0-9]*\.[0-9]*)
 "false"			{return symbol ("false"		, FALSE	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
 {ws} 			{ }
 {id}        	{return symbol ("id"		, ID		, yytext());									} 
-{const}     	{return symbol ("const"		, CONST		, new Integer(Integer.parseInt(yytext())));		} 
+{const}     	{return symbol ("const"		, CONST		, new Integer(Integer.parseInt(yytext())));		}
+{flutuante}     {return symbol ("flutuante"	, FLUT		, new Float(Float.parseFloat(yytext())));		} 
 \"              {string.setLength(0); yybegin(STRING); 													}
 "("        		{return symbol ("("			, AP);														}
 ")"        		{return symbol (")"			, FP);														}

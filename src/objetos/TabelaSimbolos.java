@@ -2,6 +2,7 @@ package objetos;
 
 import java.util.Stack;
 
+import compilador.Excecoes;
 import compilador.sym;
 
 import java.util.Hashtable;
@@ -12,14 +13,17 @@ import java.util.ListIterator;
 public class TabelaSimbolos {
 
 	private Stack<Hashtable<Object, Simbolo>> tabela = new Stack<Hashtable<Object, Simbolo>>();
-	private int escopo = 0;
+	private final String ID_REGEX 	   = "";
+	private final String INTEGER_REGEX = "0|[1-9][0-9]*";
+	private final String FLOAT_REGEX   = "(0|[1-9][0-9]*)\\.?[0-9]*";
+	private final String STRING_REGEX  = "";
 	
 	/**
 	 * Retorna a tabela de símbolos
 	 * @return tabela de símbolos
 	 */
 	public Stack<Hashtable<Object, Simbolo>> getTabela() {
-		return tabela;
+		return this.tabela;
 	}
 
 	/**
@@ -30,19 +34,32 @@ public class TabelaSimbolos {
 	 */
 	public boolean atribuiValor(Object simbolo, Object valor) {
 		if (existeSimbolo(simbolo)) {
-			return true;
+			Simbolo variavel = getSimbolo(simbolo);
+			int tipoValor = getTipoValor(valor);
+			if ((Integer)variavel.getTipo() == tipoValor) {
+				return true;
+			}
+			throw Excecoes.tipoAtribuicao(tipoValor, (Integer)variavel.getTipo());
 		}
-		throw new RuntimeException("Erro Semântico: Variável "+simbolo+" não declarada");
+		throw Excecoes.variavelNaoDeclarada(simbolo);
 	}
 	
-	public int verificaTipoValor(Object valor) {
-		if (String.valueOf(valor).matches("0|[1-9][0-9]*")) {
+	/**
+	 * Retorna o tipo do valor em uma atribuição
+	 * @param valor
+	 * @return Código do tipo do valor
+	 */
+	public int getTipoValor(Object valor) {
+		if (String.valueOf(valor).matches(INTEGER_REGEX)) {
 			return sym.INT;
 		}
-		if (String.valueOf(valor).matches("[0-9]*\\.[0-9]*")) {
+		if (String.valueOf(valor).matches(FLOAT_REGEX)) {
 			return sym.FLOAT;
 		}
-		return 0;
+		if (String.valueOf(valor).matches(STRING_REGEX)) {
+			return sym.CADEIA;
+		}
+		return (Integer)getSimbolo(valor).getTipo();
 	}
 
 	/**
@@ -54,7 +71,7 @@ public class TabelaSimbolos {
 			addSimbolo(simbolo, new Simbolo(tipo));
 			return true;
 		}
-		throw new RuntimeException("Erro Semântico: Variável "+simbolo+" já foi declarada e está se tentando declará-la novamente.");
+		throw Excecoes.variavelDeclarada(simbolo);
 	}
 
 	/**
@@ -90,6 +107,7 @@ public class TabelaSimbolos {
 		for (int i = 0; i < getTabela().size(); i++) {
 			if (getTabela().get(i).containsKey(simbolo)) {
 				Simbolo = getTabela().get(i).get(simbolo);
+				break;
 			}
 		}
 		return Simbolo;
@@ -129,7 +147,7 @@ public class TabelaSimbolos {
 		if (existeSimbolo(termo)) {
 			getSimbolo(termo).setUsado(true);
 		} else {
-			throw new RuntimeException("Erro Semântico: Variável  "+termo+" não declarada.");
+			throw Excecoes.variavelNaoDeclarada(termo);
 		}
 	}
 

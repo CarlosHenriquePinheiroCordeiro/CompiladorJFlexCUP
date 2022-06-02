@@ -22,13 +22,13 @@ parser code
 	}
 :};
 
-terminal PROGRAM      , IF     , TRUE  , FLOAT  , FALSE  , INT      , 
-         STRING       , BOOL   , VOID  , PUBLIC , PRIVATE, PROTECTED, 
-         RETURN       , AP     , FP    , AC     , FC     , ASP      , 
-         PONTO_VIRGULA, VIRGULA, ARRAY , SOMA   , SUB    , MULT     , 
-         DIV          , ATT    , IGUAL , DIF    , MAIORQ , MENORQ   , 
-         MAIORI       , MENORI , NAO   , E      , OU     , ID       , 
-         CONST        , ERRO   , TIPO  , CADEIA , WS;
+terminal PROGRAM      , IF     , TRUE   , FLOAT  , FALSE  , INT      , 
+         STRING       , BOOL   , VOID   , PUBLIC , PRIVATE, PROTECTED, 
+         RETURN       , AP     , FP     , AC     , FC     , ASP      , 
+         PONTO_VIRGULA, PONTO  , VIRGULA, ARRAY  , SOMA   , SUB      , 
+         MULT         , DIV    , ATT    , IGUAL  , DIF    , MAIORQ   , 
+         MENORQ       , MAIORI , MENORI , NAO    , E      , OU       , 
+         ID           , CONST  , FLUT   , ERRO   , TIPO   , CADEIA   , WS;
 
 non terminal PROGRAMA_ESCOPO;
 non terminal Programa PROGRAMA;
@@ -71,7 +71,8 @@ TERMO ::= TRUE
 		| IDENTIFICADOR 
 		| NAO IDENTIFICADOR
 		| CADEIA
-		| CONST;
+		| CONST
+		| FLUT;
 
 PARAMETRO ::= TERMO 
 			| TERMO VIRGULA PARAMETRO
@@ -110,8 +111,8 @@ ESTRUTURA ::= SELECAO;
 
 SELECAO ::= IF AP EXPRESSAO FP ABRE_BLOCO BLOCO FC;
 
-ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: //validar tipo com tipoxright e tipoxleft ou varxright varxright ;:}
-		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {:  ;:};
+ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: getTb().atribuiValor(var.getId(), exp.getTermo()); //validar tipo com tipoxright e tipoxleft ou varxright varxright ;:}
+		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {: getTb().atribuiValor(id, exp.getTermo());:};
 
 ABRE_BLOCO ::= AC {: getTb().novoEscopo(); :};
 

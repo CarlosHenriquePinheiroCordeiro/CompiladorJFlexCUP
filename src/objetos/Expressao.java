@@ -4,9 +4,10 @@ public class Expressao {
 
 	private Object    termo;
 	private Object    operador;
-	private Expressao expressao;
+	private Expressao expressao = null;
 
 	public Expressao(Object termo) {
+		System.out.println("SETANDO O TERMO "+termo);
 		setTermo(termo);
 	}
 	
@@ -38,6 +39,10 @@ public class Expressao {
 
 	public void setExpressao(Expressao expressao) {
 		this.expressao = expressao;
+	}
+	
+	public boolean validaExpressao() {
+		return true;
 	}
 
 
