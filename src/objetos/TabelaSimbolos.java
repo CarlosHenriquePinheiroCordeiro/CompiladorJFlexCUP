@@ -2,7 +2,7 @@ package objetos;
 
 import java.util.Stack;
 
-import compilador.Excecoes;
+import compilador.Excecao;
 import compilador.sym;
 
 import java.util.Hashtable;
@@ -16,7 +16,6 @@ public class TabelaSimbolos {
 
 	private final String INTEGER_REGEX = "0|[1-9][0-9]*";
 	private final String FLOAT_REGEX   = "(0|[1-9][0-9]*)\\.?[0-9]*";
-	private final String STRING_REGEX  = "\".*\"";
 	private final String BOOLEAN_REGEX = "true|false";
 	
 	/**
@@ -33,16 +32,39 @@ public class TabelaSimbolos {
 	 * @param valor
 	 * @return
 	 */
-	public boolean atribuiValor(Object simbolo, Object valor) {
-		if (existeSimbolo(simbolo)) {
-			Simbolo variavel = getSimbolo(simbolo);
-			int tipoValor = getTipoValor(valor);
-			if ((Integer)variavel.getTipo() == tipoValor) {
+	public boolean atribuiValor(Atribuicao atribuicao) { //Object simbolo, Object valor
+		if (existeSimbolo(atribuicao.getAlvo())) {
+			Simbolo variavel    = getSimbolo(atribuicao.getAlvo());
+			int tipoExpressao   = getTipoValorExpressao(atribuicao.getValor());
+			if ((Integer)variavel.getTipo() == tipoExpressao) {
 				return true;
 			}
-			throw Excecoes.tipoAtribuicao(tipoValor, (Integer)variavel.getTipo());
+			throw Excecao.tipoAtribuicao(tipoExpressao, (Integer)variavel.getTipo());
 		}
-		throw Excecoes.variavelNaoDeclarada(simbolo);
+		throw Excecao.variavelNaoDeclarada(atribuicao.getAlvo());
+	}
+	
+	/**
+	 * Retorna o tipo do valor do resultado que a expressão irá gerar
+	 * @param expressao
+	 * @return
+	 */
+	public int getTipoValorExpressao(Expressao expressao) {
+		int tipoExpressao  = getTipoValor(expressao.getTermo());
+		Expressao auxiliar = expressao;
+		while (auxiliar.getOperador() != null) {
+			if (tipoExpressao == sym.STRING) {
+				if ((Integer)auxiliar.getOperador() != sym.SOMA) {
+					throw Excecao.operadorInvalidoConcatenacao(auxiliar.getOperador());
+				}
+			}
+			auxiliar      = auxiliar.getExpressao();
+			int tipoTermo = getTipoValor(auxiliar.getTermo());
+			if (tipoTermo != tipoExpressao) {
+				throw Excecao.tipoExpressao(tipoExpressao, tipoTermo);
+			}
+		}
+		return tipoExpressao;
 	}
 	
 	/**
@@ -76,7 +98,7 @@ public class TabelaSimbolos {
 			addSimbolo(simbolo, new Simbolo(tipo));
 			return true;
 		}
-		throw Excecoes.variavelDeclarada(simbolo);
+		throw Excecao.variavelDeclarada(simbolo);
 	}
 
 	/**
@@ -152,7 +174,7 @@ public class TabelaSimbolos {
 		if (existeSimbolo(termo)) {
 			getSimbolo(termo).setUsado(true);
 		} else {
-			throw Excecoes.variavelNaoDeclarada(termo);
+			throw Excecao.variavelNaoDeclarada(termo);
 		}
 	}
 

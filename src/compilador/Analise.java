@@ -18,7 +18,8 @@ public class Analise {
 			Reader entrada = new StringReader(token);
 			ComplexSymbolFactory symbolFactory = new ComplexSymbolFactory();
 			Lexico lexico = new Lexico(entrada,symbolFactory);
-			retorno = sym.terminalNames[lexico.next_token().sym];
+			Symbol simbolo = lexico.next_token();
+			retorno = sym.terminalNames[simbolo.sym]+" - "+simbolo.sym;
         } catch(Exception e) {
             e.printStackTrace();
         }    

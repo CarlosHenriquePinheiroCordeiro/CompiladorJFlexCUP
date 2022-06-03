@@ -538,7 +538,10 @@ class CUP$Parser$actions {
           case 18: // OPERADOR_ARIT ::= SOMA 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_ARIT",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -547,7 +550,10 @@ class CUP$Parser$actions {
           case 19: // OPERADOR_ARIT ::= SUB 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_ARIT",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -556,7 +562,10 @@ class CUP$Parser$actions {
           case 20: // OPERADOR_ARIT ::= MULT 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_ARIT",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -565,7 +574,10 @@ class CUP$Parser$actions {
           case 21: // OPERADOR_ARIT ::= DIV 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_ARIT",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -574,7 +586,10 @@ class CUP$Parser$actions {
           case 22: // OPERADOR_BOOL ::= MAIORQ 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -583,7 +598,10 @@ class CUP$Parser$actions {
           case 23: // OPERADOR_BOOL ::= MENORQ 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -592,7 +610,10 @@ class CUP$Parser$actions {
           case 24: // OPERADOR_BOOL ::= MAIORI 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -601,7 +622,10 @@ class CUP$Parser$actions {
           case 25: // OPERADOR_BOOL ::= MENORI 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -610,7 +634,10 @@ class CUP$Parser$actions {
           case 26: // OPERADOR_BOOL ::= IGUAL 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -619,7 +646,10 @@ class CUP$Parser$actions {
           case 27: // OPERADOR_BOOL ::= DIF 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -628,7 +658,10 @@ class CUP$Parser$actions {
           case 28: // OPERADOR_BOOL ::= E 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -637,7 +670,10 @@ class CUP$Parser$actions {
           case 29: // OPERADOR_BOOL ::= OU 
             {
               Object RESULT =null;
-
+		Location opxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location opxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object op = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = op; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("OPERADOR_BOOL",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -784,7 +820,7 @@ class CUP$Parser$actions {
 		Location expxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location expxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Expressao exp = (Expressao)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 getTb().atribuiValor(var.getId(), exp.getTermo()); //validar tipo com tipoxright e tipoxleft ou varxright varxright ;
+		 RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); //validar tipo com tipoxright e tipoxleft ou varxright varxright 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUICAO",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -802,7 +838,7 @@ class CUP$Parser$actions {
 		Location expxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location expxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Expressao exp = (Expressao)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 getTb().atribuiValor(id, exp.getTermo());
+		 RESULT = new Atribuicao(id, opAtt, exp); getTb().atribuiValor(RESULT); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUICAO",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

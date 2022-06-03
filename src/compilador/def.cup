@@ -66,31 +66,31 @@ VAR ::= TIPO:tipo ID:id
 
 IDENTIFICADOR ::= ID:id {: getTb().verificaUsaSimbolo(id); :};
 
-TERMO ::= TRUE:termo {: RESULT = termo;:}
-		| FALSE:termo {: RESULT = termo;:}
-		| IDENTIFICADOR:termo {: RESULT = termo;:}
-		| NAO:nao IDENTIFICADOR:termo {: RESULT = termo;:}
-		| CADEIA:termo {: RESULT = termo;:}
-		| CONST:termo {: RESULT = termo;:}
-		| FLUT:termo {: RESULT = termo;:};
+TERMO ::= TRUE:termo 					{: RESULT = termo;:}
+		| FALSE:termo 					{: RESULT = termo;:}
+		| IDENTIFICADOR:termo 			{: RESULT = termo;:}
+		| NAO:nao IDENTIFICADOR:termo 	{: RESULT = termo;:}
+		| CADEIA:termo 					{: RESULT = termo;:}
+		| CONST:termo 					{: RESULT = termo;:}
+		| FLUT:termo 					{: RESULT = termo;:};
 
 PARAMETRO ::= TERMO 
 			| TERMO VIRGULA PARAMETRO
 			| ;
 
-OPERADOR_ARIT ::= SOMA 
-				| SUB 
-				| MULT 
-				| DIV;
+OPERADOR_ARIT ::= SOMA:op {: RESULT = new Operador(op); :}
+				| SUB:op  {: RESULT = op; :}
+				| MULT:op {: RESULT = op; :}
+				| DIV:op  {: RESULT = op; :};
 
-OPERADOR_BOOL ::= MAIORQ 
-				| MENORQ 
-				| MAIORI 
-				| MENORI 
-				| IGUAL
-				| DIF
-				| E
-				| OU;
+OPERADOR_BOOL ::= MAIORQ:op {: RESULT = op; :} 
+				| MENORQ:op {: RESULT = op; :} 
+				| MAIORI:op {: RESULT = op; :} 
+				| MENORI:op {: RESULT = op; :} 
+				| IGUAL:op 	{: RESULT = op; :}
+				| DIF:op 	{: RESULT = op; :}
+				| E:op 		{: RESULT = op; :}
+				| OU:op 	{: RESULT = op; :};
 
 EXPRESSAO ::= TERMO:termo {: RESULT = new Expressao(termo); :}
 			| TERMO:termo OPERADOR_ARIT:op EXPRESSAO:exp {: RESULT = new Expressao(termo, op, exp); :}
@@ -111,8 +111,8 @@ ESTRUTURA ::= SELECAO;
 
 SELECAO ::= IF AP EXPRESSAO FP ABRE_BLOCO BLOCO FC;
 
-ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp {: getTb().atribuiValor(var.getId(), exp.getTermo()); //validar tipo com tipoxright e tipoxleft ou varxright varxright ;:}
-		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {: getTb().atribuiValor(id, exp.getTermo());:};
+ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp     {: RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); //validar tipo com tipoxright e tipoxleft ou varxright varxright :}
+		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {: RESULT = new Atribuicao(id, opAtt, exp); getTb().atribuiValor(RESULT); :};
 
 ABRE_BLOCO ::= AC {: getTb().novoEscopo(); :};
 

@@ -20,8 +20,32 @@ public class Atribuicao {
 	 * @param valor Valor da atribuição
 	 */
 	public Atribuicao(Object alvo, Object operadorAtribuicao, Expressao valor) {
-		this.alvo = alvo;
+		this.alvo               = alvo;
 		this.operadorAtribuicao = operadorAtribuicao;
+		this.valor 				= valor;
+	}
+
+	public Object getAlvo() {
+		return alvo;
+	}
+
+	public void setAlvo(Object alvo) {
+		this.alvo = alvo;
+	}
+
+	public Object getOperadorAtribuicao() {
+		return operadorAtribuicao;
+	}
+
+	public void setOperadorAtribuicao(Object operadorAtribuicao) {
+		this.operadorAtribuicao = operadorAtribuicao;
+	}
+
+	public Expressao getValor() {
+		return valor;
+	}
+
+	public void setValor(Expressao valor) {
 		this.valor = valor;
 	}
 
