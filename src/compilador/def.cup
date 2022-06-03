@@ -22,7 +22,7 @@ parser code
 	}
 :};
 
-terminal PROGRAM      , IF     , TRUE   , FLOAT  , FALSE  , INT      , 
+terminal PROGRAM      , IF     , TRUE   , FLOAT  , FALSE  , INT      , BOOLEAN, 
          STRING       , BOOL   , VOID   , PUBLIC , PRIVATE, PROTECTED, 
          RETURN       , AP     , FP     , AC     , FC     , ASP      , 
          PONTO_VIRGULA, PONTO  , VIRGULA, ARRAY  , SOMA   , SUB      , 
@@ -66,13 +66,13 @@ VAR ::= TIPO:tipo ID:id
 
 IDENTIFICADOR ::= ID:id {: getTb().verificaUsaSimbolo(id); :};
 
-TERMO ::= TRUE
-		| FALSE
-		| IDENTIFICADOR 
-		| NAO IDENTIFICADOR
-		| CADEIA
-		| CONST
-		| FLUT;
+TERMO ::= TRUE:termo {: RESULT = termo;:}
+		| FALSE:termo {: RESULT = termo;:}
+		| IDENTIFICADOR:termo {: RESULT = termo;:}
+		| NAO:nao IDENTIFICADOR:termo {: RESULT = termo;:}
+		| CADEIA:termo {: RESULT = termo;:}
+		| CONST:termo {: RESULT = termo;:}
+		| FLUT:termo {: RESULT = termo;:};
 
 PARAMETRO ::= TERMO 
 			| TERMO VIRGULA PARAMETRO

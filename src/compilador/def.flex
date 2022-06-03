@@ -70,13 +70,13 @@ flutuante   = ({const})\.?{numeros}*
 "int"			{return symbol ("int"		, TIPO	 	, new Integer(INT));							}
 "float"			{return symbol ("float"		, TIPO	 	, new Integer(FLOAT));							}
 "String"		{return symbol ("String"	, TIPO 		, new Integer(STRING));							}
-"boolean"		{return symbol ("boolean"	, TIPO	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
-"true"			{return symbol ("true"		, TRUE	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
-"false"			{return symbol ("false"		, FALSE	 	, new Boolean(Boolean.parseBoolean(yytext())));	}
+"boolean"		{return symbol ("boolean"	, TIPO	 	, new Integer(BOOLEAN));						}
+"true"			{return symbol ("true"		, TRUE	 	, yytext());									}
+"false"			{return symbol ("false"		, FALSE	 	, yytext());									}
 {ws} 			{ }
 {id}        	{return symbol ("id"		, ID		, yytext());									} 
-{const}     	{return symbol ("const"		, CONST		, new Integer(Integer.parseInt(yytext())));		}
-{flutuante}     {return symbol ("flutuante"	, FLUT		, new Float(Float.parseFloat(yytext())));		} 
+{const}     	{return symbol ("const"		, CONST		, yytext());									}
+{flutuante}     {return symbol ("flutuante"	, FLUT		, yytext());									} 
 \"              {string.setLength(0); yybegin(STRING); 													}
 "("        		{return symbol ("("			, AP);														}
 ")"        		{return symbol (")"			, FP);														}
@@ -102,7 +102,7 @@ flutuante   = ({const})\.?{numeros}*
 }
 <STRING> { /* para leitura de uma string */
   \" { yybegin(YYINITIAL); 
-      return symbol("cadeia",CADEIA,string.toString(),string.length()); }
+      return symbol("cadeia",CADEIA,string,string.length()); }
   [^\n\r\"\\]+ { string.append( yytext() ); }
   \\t          { string.append('\t'); }
   \\n          { string.append('\n'); }

@@ -7,7 +7,6 @@ public class Expressao {
 	private Expressao expressao = null;
 
 	public Expressao(Object termo) {
-		System.out.println("SETANDO O TERMO "+termo);
 		setTermo(termo);
 	}
 	

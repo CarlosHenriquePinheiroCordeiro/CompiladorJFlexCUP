@@ -13,10 +13,11 @@ import java.util.ListIterator;
 public class TabelaSimbolos {
 
 	private Stack<Hashtable<Object, Simbolo>> tabela = new Stack<Hashtable<Object, Simbolo>>();
-	private final String ID_REGEX 	   = "";
+
 	private final String INTEGER_REGEX = "0|[1-9][0-9]*";
 	private final String FLOAT_REGEX   = "(0|[1-9][0-9]*)\\.?[0-9]*";
-	private final String STRING_REGEX  = "";
+	private final String STRING_REGEX  = "\".*\"";
+	private final String BOOLEAN_REGEX = "true|false";
 	
 	/**
 	 * Retorna a tabela de símbolos
@@ -56,9 +57,13 @@ public class TabelaSimbolos {
 		if (String.valueOf(valor).matches(FLOAT_REGEX)) {
 			return sym.FLOAT;
 		}
-		if (String.valueOf(valor).matches(STRING_REGEX)) {
-			return sym.CADEIA;
+		if (String.valueOf(valor).matches(BOOLEAN_REGEX)) {
+			return sym.BOOL;
 		}
+		if (valor.getClass() == StringBuffer.class) {
+			return sym.STRING;
+		}
+		
 		return (Integer)getSimbolo(valor).getTipo();
 	}
 
