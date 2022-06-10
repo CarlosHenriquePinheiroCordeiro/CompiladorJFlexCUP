@@ -69,7 +69,7 @@ flutuante   = ({const})\.?{numeros}*
 "if"			{return symbol ("if"		, IF	   );												}
 "int"			{return symbol ("int"		, TIPO	 	, new Integer(INT));							}
 "float"			{return symbol ("float"		, TIPO	 	, new Integer(FLOAT));							}
-"String"		{return symbol ("String"	, TIPO 		, new Integer(STRING));							}
+"string"		{return symbol ("string"	, TIPO 		, new Integer(STRING));							}
 "boolean"		{return symbol ("boolean"	, TIPO	 	, new Integer(BOOLEAN));						}
 "true"			{return symbol ("true"		, TRUE	 	, yytext());									}
 "false"			{return symbol ("false"		, FALSE	 	, yytext());									}

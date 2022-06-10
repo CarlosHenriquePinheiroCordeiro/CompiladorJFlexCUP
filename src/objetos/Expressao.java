@@ -1,6 +1,6 @@
 package objetos;
 
-public class Expressao {
+public class Expressao implements Codigo {
 
 	private Object    termo;
 	private Object    operador;
@@ -42,6 +42,12 @@ public class Expressao {
 	
 	public boolean validaExpressao() {
 		return true;
+	}
+
+	@Override
+	public String geraCodigo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

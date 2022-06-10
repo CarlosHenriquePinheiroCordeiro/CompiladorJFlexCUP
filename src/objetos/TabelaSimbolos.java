@@ -73,6 +73,12 @@ public class TabelaSimbolos {
 	 * @return Código do tipo do valor
 	 */
 	public int getTipoValor(Object valor) {
+		if (valor != null) {
+			Simbolo simbolo = getSimbolo(valor);
+			if (simbolo != null) {
+				return (Integer)simbolo.getTipo();
+			}
+		}
 		if (String.valueOf(valor).matches(INTEGER_REGEX)) {
 			return sym.INT;
 		}
@@ -82,11 +88,7 @@ public class TabelaSimbolos {
 		if (String.valueOf(valor).matches(BOOLEAN_REGEX)) {
 			return sym.BOOL;
 		}
-		if (valor.getClass() == StringBuffer.class) {
-			return sym.STRING;
-		}
-		
-		return (Integer)getSimbolo(valor).getTipo();
+		return sym.STRING;
 	}
 
 	/**

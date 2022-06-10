@@ -1,6 +1,6 @@
 package objetos;
 
-public class Termo {
+public class Termo implements Codigo {
 	
 	private Object termo;
 	
@@ -14,6 +14,12 @@ public class Termo {
 
 	public void setTermo(Object termo) {
 		this.termo = termo;
+	}
+
+	@Override
+	public String geraCodigo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

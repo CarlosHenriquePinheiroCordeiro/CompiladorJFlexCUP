@@ -5,7 +5,7 @@ package objetos;
  * @author Carlos Henrique Pinheiro Cordeiro
  *
  */
-public class Var {
+public class Var implements Codigo {
 
 	/** Tipo da variável */
 	private Object tipo;
@@ -39,6 +39,12 @@ public class Var {
 
 	public void setId(Object id) {
 		this.id = id;
+	}
+
+	@Override
+	public String geraCodigo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

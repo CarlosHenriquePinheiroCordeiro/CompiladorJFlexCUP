@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Funcao {
 
-	private Escopo         escopo;
+	private Object         escopo;
 	private Object   	   tipoRetorno;
 	private Object     	   nome;
 	private ArrayList<Var> parametros;

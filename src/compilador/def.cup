@@ -41,7 +41,7 @@ non terminal PARAMETRO;
 non terminal OPERADOR_ARIT;
 non terminal OPERADOR_BOOL;
 non terminal Expressao EXPRESSAO;
-non terminal Escopo SCOPE;
+non terminal SCOPE;
 non terminal Funcao FUNCAO;
 non terminal CALL_FUNC;
 non terminal ESTRUTURA;
@@ -78,10 +78,10 @@ PARAMETRO ::= TERMO
 			| TERMO VIRGULA PARAMETRO
 			| ;
 
-OPERADOR_ARIT ::= SOMA:op {: RESULT = new Operador(op); :}
-				| SUB:op  {: RESULT = op; :}
-				| MULT:op {: RESULT = op; :}
-				| DIV:op  {: RESULT = op; :};
+OPERADOR_ARIT ::= SOMA:op {: RESULT = op; :} 
+				| SUB:op  {: RESULT = op; :} 
+				| MULT:op {: RESULT = op; :} 
+				| DIV:op  {: RESULT = op; :} ;
 
 OPERADOR_BOOL ::= MAIORQ:op {: RESULT = op; :} 
 				| MENORQ:op {: RESULT = op; :} 
@@ -107,21 +107,21 @@ FUNCAO ::= SCOPE TIPO_RETORNO ID AP LISTA_VAR FP ABRE_BLOCO BLOCO RETORNO FC;
 
 CALL_FUNC ::= ID AP PARAMETRO FP;
 
-ESTRUTURA ::= SELECAO;
+ESTRUTURA ::= SELECAO:selecao;
 
 SELECAO ::= IF AP EXPRESSAO FP ABRE_BLOCO BLOCO FC;
 
-ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp     {: RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); //validar tipo com tipoxright e tipoxleft ou varxright varxright :}
+ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp     {: RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); :}
 		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {: RESULT = new Atribuicao(id, opAtt, exp); getTb().atribuiValor(RESULT); :};
 
 ABRE_BLOCO ::= AC {: getTb().novoEscopo(); :};
 
-BLOCO ::= VAR PONTO_VIRGULA BLOCO
-		| ATRIBUICAO PONTO_VIRGULA BLOCO
-		| EXPRESSAO PONTO_VIRGULA BLOCO 
-		| CALL_FUNC PONTO_VIRGULA BLOCO 
-		| FUNCAO BLOCO
-		| ESTRUTURA BLOCO
+BLOCO ::= VAR:var PONTO_VIRGULA BLOCO:b 			{: RESULT = new Bloco(); RESULT.addLinha(var); 		RESULT.addLinhasBloco(b); :}
+		| ATRIBUICAO:att PONTO_VIRGULA BLOCO:b 		{: RESULT = new Bloco(); RESULT.addLinha(att);		RESULT.addLinhasBloco(b); :}
+		| EXPRESSAO:exp PONTO_VIRGULA BLOCO:b 		{: RESULT = new Bloco(); RESULT.addLinha(exp); 		RESULT.addLinhasBloco(b); :}
+		| CALL_FUNC:callFunc PONTO_VIRGULA BLOCO:b 	{: RESULT = new Bloco(); RESULT.addLinha(callFunc); RESULT.addLinhasBloco(b); :}
+		| FUNCAO:func BLOCO:b 						{: RESULT = new Bloco(); RESULT.addLinha(func); 	RESULT.addLinhasBloco(b); :}
+		| ESTRUTURA:est BLOCO:b 					{: RESULT = new Bloco(); RESULT.addLinha(est); 	    RESULT.addLinhasBloco(b); :}
 		| {: getTb().fimEscopo(); :};
 
 RETORNO ::= RETURN EXPRESSAO PONTO_VIRGULA

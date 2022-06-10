@@ -1,6 +1,6 @@
 package objetos;
 
-public class Atribuicao {
+public class Atribuicao implements Codigo{
 	
 	/** Alvo da atribuição, que vai receber o resultado */
 	private Object alvo;
@@ -47,6 +47,12 @@ public class Atribuicao {
 
 	public void setValor(Expressao valor) {
 		this.valor = valor;
+	}
+
+	@Override
+	public String geraCodigo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

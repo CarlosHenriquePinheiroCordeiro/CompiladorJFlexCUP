@@ -729,7 +729,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // SCOPE ::= PUBLIC 
             {
-              Escopo RESULT =null;
+              Object RESULT =null;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("SCOPE",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -738,7 +738,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // SCOPE ::= PRIVATE 
             {
-              Escopo RESULT =null;
+              Object RESULT =null;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("SCOPE",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -747,7 +747,7 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 35: // SCOPE ::= PROTECTED 
             {
-              Escopo RESULT =null;
+              Object RESULT =null;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("SCOPE",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -793,6 +793,9 @@ class CUP$Parser$actions {
           case 40: // ESTRUTURA ::= SELECAO 
             {
               Object RESULT =null;
+		Location selecaoxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location selecaoxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object selecao = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ESTRUTURA",14, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -820,7 +823,7 @@ class CUP$Parser$actions {
 		Location expxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location expxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Expressao exp = (Expressao)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); //validar tipo com tipoxright e tipoxleft ou varxright varxright 
+		 RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUICAO",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -856,7 +859,13 @@ class CUP$Parser$actions {
           case 45: // BLOCO ::= VAR PONTO_VIRGULA BLOCO 
             {
               Bloco RESULT =null;
-
+		Location varxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xleft;
+		Location varxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
+		Var var = (Var)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Bloco b = (Bloco)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new Bloco(); RESULT.addLinha(var); 		RESULT.addLinhasBloco(b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("BLOCO",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -865,7 +874,13 @@ class CUP$Parser$actions {
           case 46: // BLOCO ::= ATRIBUICAO PONTO_VIRGULA BLOCO 
             {
               Bloco RESULT =null;
-
+		Location attxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xleft;
+		Location attxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
+		Atribuicao att = (Atribuicao)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Bloco b = (Bloco)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new Bloco(); RESULT.addLinha(att);		RESULT.addLinhasBloco(b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("BLOCO",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -874,7 +889,13 @@ class CUP$Parser$actions {
           case 47: // BLOCO ::= EXPRESSAO PONTO_VIRGULA BLOCO 
             {
               Bloco RESULT =null;
-
+		Location expxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xleft;
+		Location expxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
+		Expressao exp = (Expressao)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Bloco b = (Bloco)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new Bloco(); RESULT.addLinha(exp); 		RESULT.addLinhasBloco(b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("BLOCO",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -883,7 +904,13 @@ class CUP$Parser$actions {
           case 48: // BLOCO ::= CALL_FUNC PONTO_VIRGULA BLOCO 
             {
               Bloco RESULT =null;
-
+		Location callFuncxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xleft;
+		Location callFuncxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).xright;
+		Object callFunc = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Bloco b = (Bloco)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new Bloco(); RESULT.addLinha(callFunc); RESULT.addLinhasBloco(b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("BLOCO",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -892,7 +919,13 @@ class CUP$Parser$actions {
           case 49: // BLOCO ::= FUNCAO BLOCO 
             {
               Bloco RESULT =null;
-
+		Location funcxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+		Location funcxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+		Funcao func = (Funcao)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Bloco b = (Bloco)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new Bloco(); RESULT.addLinha(func); 	RESULT.addLinhasBloco(b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("BLOCO",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -901,7 +934,13 @@ class CUP$Parser$actions {
           case 50: // BLOCO ::= ESTRUTURA BLOCO 
             {
               Bloco RESULT =null;
-
+		Location estxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+		Location estxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+		Object est = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		Location bxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location bxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Bloco b = (Bloco)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new Bloco(); RESULT.addLinha(est); 	    RESULT.addLinhasBloco(b); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("BLOCO",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
