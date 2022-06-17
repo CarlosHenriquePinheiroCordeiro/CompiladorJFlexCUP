@@ -10,15 +10,15 @@ public interface sym {
   /* terminals */
   public static final int AC = 18;
   public static final int MULT = 27;
-  public static final int TIPO = 43;
   public static final int CONST = 40;
   public static final int SOMA = 25;
+  public static final int STR = 9;
   public static final int MENORQ = 33;
   public static final int MAIORQ = 32;
   public static final int ATT = 29;
-  public static final int CADEIA = 44;
   public static final int PRIVATE = 13;
   public static final int MENORI = 35;
+  public static final int FLT = 6;
   public static final int INT = 7;
   public static final int ARRAY = 24;
   public static final int ERRO = 42;
@@ -30,13 +30,11 @@ public interface sym {
   public static final int IGUAL = 30;
   public static final int FP = 17;
   public static final int OU = 38;
-  public static final int BOOL = 10;
   public static final int DIV = 28;
   public static final int IF = 3;
   public static final int FC = 19;
   public static final int ID = 39;
   public static final int EOF = 0;
-  public static final int BOOLEAN = 8;
   public static final int RETURN = 15;
   public static final int PONTO_VIRGULA = 21;
   public static final int TRUE = 4;
@@ -46,11 +44,11 @@ public interface sym {
   public static final int DIF = 31;
   public static final int VOID = 11;
   public static final int PROTECTED = 14;
-  public static final int WS = 45;
-  public static final int FLOAT = 5;
+  public static final int WS = 43;
+  public static final int BOL = 8;
   public static final int PUBLIC = 12;
-  public static final int STRING = 9;
-  public static final int FALSE = 6;
+  public static final int STRING = 10;
+  public static final int FALSE = 5;
   public static final int NAO = 36;
   public static final int AP = 16;
   public static final int SUB = 26;
@@ -60,12 +58,12 @@ public interface sym {
   "PROGRAM",
   "IF",
   "TRUE",
-  "FLOAT",
   "FALSE",
+  "FLT",
   "INT",
-  "BOOLEAN",
+  "BOL",
+  "STR",
   "STRING",
-  "BOOL",
   "VOID",
   "PUBLIC",
   "PRIVATE",
@@ -98,8 +96,6 @@ public interface sym {
   "CONST",
   "FLUT",
   "ERRO",
-  "TIPO",
-  "CADEIA",
   "WS"
   };
 }

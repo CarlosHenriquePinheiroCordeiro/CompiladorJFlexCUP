@@ -83,10 +83,10 @@ public class TabelaSimbolos {
 			return sym.INT;
 		}
 		if (String.valueOf(valor).matches(FLOAT_REGEX)) {
-			return sym.FLOAT;
+			return sym.FLT;
 		}
 		if (String.valueOf(valor).matches(BOOLEAN_REGEX)) {
-			return sym.BOOL;
+			return sym.BOL;
 		}
 		return sym.STRING;
 	}

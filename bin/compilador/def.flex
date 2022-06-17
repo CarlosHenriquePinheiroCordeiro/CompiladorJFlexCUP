@@ -67,10 +67,10 @@ flutuante   = ({const})\.?{numeros}*
 "protected"		{return symbol ("protected" , PROTECTED);												}
 "return"		{return symbol ("return"    , RETURN   );												}
 "if"			{return symbol ("if"		, IF	   );												}
-"int"			{return symbol ("int"		, TIPO	 	, new Integer(INT));							}
-"float"			{return symbol ("float"		, TIPO	 	, new Integer(FLOAT));							}
-"string"		{return symbol ("string"	, TIPO 		, new Integer(STRING));							}
-"boolean"		{return symbol ("boolean"	, TIPO	 	, new Integer(BOOLEAN));						}
+"int"			{return symbol ("int"		, INT		, new Integer(INT));							}
+"float"			{return symbol ("float"		, FLT		, new Integer(FLT));							}
+"string"		{return symbol ("string"	, STR		, new Integer(STR));							}
+"boolean"		{return symbol ("boolean"	, BOL  		, new Integer(BOL));							}
 "true"			{return symbol ("true"		, TRUE	 	, yytext());									}
 "false"			{return symbol ("false"		, FALSE	 	, yytext());									}
 {ws} 			{ }
@@ -102,7 +102,7 @@ flutuante   = ({const})\.?{numeros}*
 }
 <STRING> { /* para leitura de uma string */
   \" { yybegin(YYINITIAL); 
-      return symbol("cadeia",CADEIA,string,string.length()); }
+      return symbol("string",STRING,string,string.length()); }
   [^\n\r\"\\]+ { string.append( yytext() ); }
   \\t          { string.append('\t'); }
   \\n          { string.append('\n'); }

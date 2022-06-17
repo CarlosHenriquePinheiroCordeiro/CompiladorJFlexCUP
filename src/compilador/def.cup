@@ -22,16 +22,17 @@ parser code
 	}
 :};
 
-terminal PROGRAM      , IF     , TRUE   , FLOAT  , FALSE  , INT      , BOOLEAN, 
-         STRING       , BOOL   , VOID   , PUBLIC , PRIVATE, PROTECTED, 
+terminal PROGRAM      , IF     , TRUE   , FALSE  , FLT    , INT      , BOL, 
+         STR		  , STRING , VOID   , PUBLIC , PRIVATE, PROTECTED, 
          RETURN       , AP     , FP     , AC     , FC     , ASP      , 
          PONTO_VIRGULA, PONTO  , VIRGULA, ARRAY  , SOMA   , SUB      , 
          MULT         , DIV    , ATT    , IGUAL  , DIF    , MAIORQ   , 
          MENORQ       , MAIORI , MENORI , NAO    , E      , OU       , 
-         ID           , CONST  , FLUT   , ERRO   , TIPO   , CADEIA   , WS;
+         ID           , CONST  , FLUT   , ERRO   , WS;
 
 non terminal PROGRAMA_ESCOPO;
 non terminal Programa PROGRAMA;
+non terminal TIPO;
 non terminal ArrayList<Var> LISTA_VAR;
 non terminal Var VAR;
 non terminal IDENTIFICADOR;
@@ -56,6 +57,11 @@ PROGRAMA ::= PROGRAMA_ESCOPO ID:id AP LISTA_VAR:listaVar FP AC BLOCO:bloco FC
 
 PROGRAMA_ESCOPO ::= PROGRAM {: getTb().novoEscopo(); :};
 
+TIPO ::= STR
+		|INT
+		|FLT
+		|BOL;
+
 LISTA_VAR ::= LISTA_VAR:listaVar VIRGULA VAR:var {: listaVar.add(var); RESULT = listaVar; :}
 			| VAR:v {: RESULT = new ArrayList<Var>(); RESULT.add(v); :}
 			| 
@@ -70,7 +76,7 @@ TERMO ::= TRUE:termo 					{: RESULT = termo;:}
 		| FALSE:termo 					{: RESULT = termo;:}
 		| IDENTIFICADOR:termo 			{: RESULT = termo;:}
 		| NAO:nao IDENTIFICADOR:termo 	{: RESULT = termo;:}
-		| CADEIA:termo 					{: RESULT = termo;:}
+		| STRING:termo 					{: RESULT = termo;:}
 		| CONST:termo 					{: RESULT = termo;:}
 		| FLUT:termo 					{: RESULT = termo;:};
 

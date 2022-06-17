@@ -864,7 +864,7 @@ public class Lexico implements java_cup.runtime.Scanner, sym {
           case 68: break;
           case 21:
             { yybegin(YYINITIAL); 
-      return symbol("cadeia",CADEIA,string,string.length());
+      return symbol("string",STRING,string,string.length());
             }
             // fall through
           case 69: break;
@@ -944,7 +944,7 @@ public class Lexico implements java_cup.runtime.Scanner, sym {
             // fall through
           case 84: break;
           case 37:
-            { return symbol ("int"		, TIPO	 	, new Integer(INT));
+            { return symbol ("int"		, INT		, new Integer(INT));
             }
             // fall through
           case 85: break;
@@ -964,7 +964,7 @@ public class Lexico implements java_cup.runtime.Scanner, sym {
             // fall through
           case 88: break;
           case 41:
-            { return symbol ("float"		, TIPO	 	, new Integer(FLOAT));
+            { return symbol ("float"		, FLT		, new Integer(FLT));
             }
             // fall through
           case 89: break;
@@ -979,12 +979,12 @@ public class Lexico implements java_cup.runtime.Scanner, sym {
             // fall through
           case 91: break;
           case 44:
-            { return symbol ("string"	, TIPO 		, new Integer(STRING));
+            { return symbol ("string"	, STR		, new Integer(STR));
             }
             // fall through
           case 92: break;
           case 45:
-            { return symbol ("boolean"	, TIPO	 	, new Integer(BOOLEAN));
+            { return symbol ("boolean"	, BOL  		, new Integer(BOL));
             }
             // fall through
           case 93: break;
