@@ -60,6 +60,7 @@ flutuante   = ({const})\.?{numeros}*
 /* regras de tradução - tokens */
 "//".*      {/* ignorar comentários */}
 <YYINITIAL> {
+\"              {string.setLength(0); yybegin(STRING); 													}
 "program"		{return symbol ("program"   , PROGRAM);													}
 "void"			{return symbol ("void"	    , VOID);													}
 "public"		{return symbol ("public"	, PUBLIC); 													}
@@ -77,7 +78,6 @@ flutuante   = ({const})\.?{numeros}*
 {id}        	{return symbol ("id"		, ID		, yytext());									} 
 {const}     	{return symbol ("const"		, CONST		, yytext());									}
 {flutuante}     {return symbol ("flutuante"	, FLUT		, yytext());									} 
-\"              {string.setLength(0); yybegin(STRING); 													}
 "("        		{return symbol ("("			, AP);														}
 ")"        		{return symbol (")"			, FP);														}
 "{"       		{return symbol ("{"			, AC);														}
@@ -100,6 +100,7 @@ flutuante   = ({const})\.?{numeros}*
 "&&"        	{return symbol ("&&"		, E			, new Integer(E));								}
 "||"            {return symbol ("||"		, OU		, new Integer(OU));								}
 }
+
 <STRING> { /* para leitura de uma string */
   \" { yybegin(YYINITIAL); 
       return symbol("string",STRING,string,string.length()); }

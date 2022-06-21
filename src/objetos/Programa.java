@@ -34,7 +34,7 @@ public class Programa implements Codigo {
 	public String geraCodigo() {
 		ArrayList<Object> linhas = getBloco().getLinhas();
 		for (Object linha : linhas) {
-			System.out.println(linha);
+			//System.out.println(linha);
 		}
 		return null;
 	}

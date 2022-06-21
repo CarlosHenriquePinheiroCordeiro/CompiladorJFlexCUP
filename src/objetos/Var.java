@@ -20,7 +20,7 @@ public class Var implements Codigo {
 	 * @param tipo tipo da variável
 	 * @param id identificador da variável
 	 */
-	public Var(Object tipo, Object id) {
+	public Var(Object id, Object tipo) {
 		this.tipo = tipo;
 		this.id = id;
 	}
