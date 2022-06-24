@@ -1,3 +1,3 @@
 program hello() {
-	string a = "Carlos";
+	string a = "Hello World";
 }

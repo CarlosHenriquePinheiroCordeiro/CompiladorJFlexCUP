@@ -8,6 +8,7 @@ package compilador;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
+  public static final int CSTRING = 10;
   public static final int AC = 18;
   public static final int MULT = 27;
   public static final int CONST = 40;
@@ -47,7 +48,6 @@ public interface sym {
   public static final int WS = 43;
   public static final int BOL = 8;
   public static final int PUBLIC = 12;
-  public static final int STRING = 10;
   public static final int FALSE = 5;
   public static final int NAO = 36;
   public static final int AP = 16;
@@ -63,7 +63,7 @@ public interface sym {
   "INT",
   "BOL",
   "STR",
-  "STRING",
+  "CSTRING",
   "VOID",
   "PUBLIC",
   "PRIVATE",

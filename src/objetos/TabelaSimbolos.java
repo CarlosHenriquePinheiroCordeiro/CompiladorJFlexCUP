@@ -53,7 +53,7 @@ public class TabelaSimbolos {
 		int tipoExpressao  = getTipoValor(expressao.getTermo());
 		Expressao auxiliar = expressao;
 		while (auxiliar.getOperador() != null) {
-			if (tipoExpressao == sym.STRING) {
+			if (tipoExpressao == sym.CSTRING) {
 				if ((Integer)auxiliar.getOperador() != sym.SOMA) {
 					throw Excecao.operadorInvalidoConcatenacao(auxiliar.getOperador());
 				}
@@ -88,7 +88,7 @@ public class TabelaSimbolos {
 		if (String.valueOf(valor).matches(BOOLEAN_REGEX)) {
 			return sym.BOL;
 		}
-		return sym.STRING;
+		return sym.STR;
 	}
 
 	/**

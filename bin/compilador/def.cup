@@ -23,7 +23,7 @@ parser code
 :};
 
 terminal PROGRAM      , IF     , TRUE   , FALSE  , FLT    , INT      , BOL, 
-         STR		  , STRING , VOID   , PUBLIC , PRIVATE, PROTECTED, 
+         STR		  , CSTRING , VOID   , PUBLIC , PRIVATE, PROTECTED, 
          RETURN       , AP     , FP     , AC     , FC     , ASP      , 
          PONTO_VIRGULA, PONTO  , VIRGULA, ARRAY  , SOMA   , SUB      , 
          MULT         , DIV    , ATT    , IGUAL  , DIF    , MAIORQ   , 
@@ -72,7 +72,7 @@ VAR ::= TIPO:tipo ID:id
 
 IDENTIFICADOR ::= ID:id {: getTb().verificaUsaSimbolo(id); RESULT = id; :};
 
-TERMO ::= STRING:termo 					{: RESULT = termo;:}
+TERMO ::= CSTRING:termo 					{: RESULT = termo;:}
 		| TRUE:termo 					{: RESULT = termo;:}
 		| FALSE:termo 					{: RESULT = termo;:}
 		| IDENTIFICADOR:termo 			{: RESULT = termo;:}

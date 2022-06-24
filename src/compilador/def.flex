@@ -61,7 +61,7 @@ flutuante   = ({const})\.?{numeros}*
 "//".*      {/* ignorar comentários */}
 <YYINITIAL> {
 \"              {string.setLength(0); yybegin(STRING); 													}
-"program"		{return symbol ("program"   , PROGRAM);													}
+"program"		{return symbol ("program"   , PROGRAM); 												}
 "void"			{return symbol ("void"	    , VOID);													}
 "public"		{return symbol ("public"	, PUBLIC); 													}
 "private"		{return symbol ("private"	, PRIVATE);													}
@@ -102,15 +102,15 @@ flutuante   = ({const})\.?{numeros}*
 }
 
 <STRING> { /* para leitura de uma string */
-  \" { yybegin(YYINITIAL); 
-      return symbol("string",STRING,string,string.length()); }
-  [^\n\r\"\\]+ { string.append( yytext() ); }
-  \\t          { string.append('\t'); }
-  \\n          { string.append('\n'); }
+  \" {yybegin(YYINITIAL);
+      return symbol("string", CSTRING, string.toString(), string.length()); }
+  [^\n\r\t\"\\]+  	{ string.append(yytext()); }
+  \\t          		{ string.append('\t'); }
+  \\n          		{ string.append('\n'); }
 
-  \\r	       { string.append('\r'); }
-  \\\"         { string.append('\"'); }
-  \\           { string.append('\\'); }
+  \\r	       		{ string.append('\r'); }
+  \\\"         		{ string.append('\"'); }
+  \\           		{ string.append('\\'); }
 }
 
 /* tratamento de erros */
