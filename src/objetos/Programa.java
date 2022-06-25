@@ -32,10 +32,8 @@ public class Programa implements Codigo {
 
 	@Override
 	public String geraCodigo() {
-		ArrayList<Object> linhas = getBloco().getLinhas();
-		for (Object linha : linhas) {
-			//System.out.println(linha);
-		}
+		GeraCodigo gerador = new GeraCodigo(this);
+		gerador.gerarCodigo();
 		return null;
 	}
 

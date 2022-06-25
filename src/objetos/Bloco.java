@@ -2,9 +2,9 @@ package objetos;
 
 import java.util.ArrayList;
 
-public class Bloco {
+public class Bloco implements Codigo {
 	
-	private ArrayList<Object> linhas = new ArrayList<Object>();
+	private ArrayList<Codigo> linhas = new ArrayList<Codigo>();
 
 	public Bloco() {}
 	
@@ -12,7 +12,7 @@ public class Bloco {
 	 * Adiciona a linha atual ao bloco
 	 * @param linha
 	 */
-	public void addLinha(Object linha) {
+	public void addLinha(Codigo linha) {
 		getLinhas().add(linha);
 	}
 	
@@ -22,18 +22,26 @@ public class Bloco {
 	 */
 	public void addLinhasBloco(Bloco bloco) {
 		if (bloco != null) {
-			for (Object linhaBloco : bloco.getLinhas()) {
+			for (Codigo linhaBloco : bloco.getLinhas()) {
 				getLinhas().add(linhaBloco);
 			}
 		}
 	}
 
-	public ArrayList<Object> getLinhas() {
+	public ArrayList<Codigo> getLinhas() {
 		return linhas;
 	}
 
-	public void setLinhas(ArrayList<Object> linhas) {
+	public void setLinhas(ArrayList<Codigo> linhas) {
 		this.linhas = linhas;
+	}
+
+	@Override
+	public String geraCodigo() {
+		for (Codigo linha : getLinhas()) {
+			linha.geraCodigo();
+		}
+		return null;
 	}
 
 

@@ -18,7 +18,7 @@ public class Termo implements Codigo {
 
 	@Override
 	public String geraCodigo() {
-		// TODO Auto-generated method stub
+		System.out.println("TERMO");
 		return null;
 	}
 	

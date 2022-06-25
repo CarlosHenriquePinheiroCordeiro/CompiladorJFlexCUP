@@ -23,7 +23,7 @@ parser code
 :};
 
 terminal PROGRAM      , IF     , TRUE   , FALSE  , FLT    , INT      , BOL, 
-         STR		  , CSTRING , VOID   , PUBLIC , PRIVATE, PROTECTED, 
+         STR		  , CSTRING, VOID   , PUBLIC , PRIVATE, PROTECTED, 
          RETURN       , AP     , FP     , AC     , FC     , ASP      , 
          PONTO_VIRGULA, PONTO  , VIRGULA, ARRAY  , SOMA   , SUB      , 
          MULT         , DIV    , ATT    , IGUAL  , DIF    , MAIORQ   , 
@@ -45,14 +45,14 @@ non terminal Expressao EXPRESSAO;
 non terminal SCOPE;
 non terminal Funcao FUNCAO;
 non terminal CALL_FUNC;
-non terminal ESTRUTURA;
-non terminal SELECAO;
+non terminal Estrutura ESTRUTURA;
+non terminal Estrutura SELECAO;
 non terminal ABRE_BLOCO;
 non terminal Bloco BLOCO;
 non terminal TIPO_RETORNO;
 non terminal RETORNO;
 
-PROGRAMA ::= PROGRAMA_ESCOPO ID:id AP LISTA_VAR:listaVar FP AC BLOCO:bloco FC
+PROGRAMA ::= PROGRAMA_ESCOPO ID:id AP LISTA_VAR:listaVar FP AC:abreChave BLOCO:bloco FC:fechaChave
 			{: 	RESULT = new Programa(id, listaVar, bloco); :};
 
 PROGRAMA_ESCOPO ::= PROGRAM {: getTb().novoEscopo(); :};
@@ -72,7 +72,7 @@ VAR ::= TIPO:tipo ID:id
 
 IDENTIFICADOR ::= ID:id {: getTb().verificaUsaSimbolo(id); RESULT = id; :};
 
-TERMO ::= CSTRING:termo 					{: RESULT = termo;:}
+TERMO ::= CSTRING:termo 				{: RESULT = termo;:}
 		| TRUE:termo 					{: RESULT = termo;:}
 		| FALSE:termo 					{: RESULT = termo;:}
 		| IDENTIFICADOR:termo 			{: RESULT = termo;:}
@@ -115,18 +115,16 @@ CALL_FUNC ::= ID AP PARAMETRO FP;
 
 ESTRUTURA ::= SELECAO:selecao {: RESULT = selecao; :};
 
-SELECAO ::= IF AP EXPRESSAO FP ABRE_BLOCO BLOCO FC;
+SELECAO ::= IF AP EXPRESSAO:exp FP ABRE_BLOCO BLOCO:bloco FC {: RESULT = new Estrutura(exp, bloco); :};
 
 ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp     {: RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); :}
 		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {: RESULT = new Atribuicao(id, opAtt, exp); getTb().atribuiValor(RESULT); :};
 
-ABRE_BLOCO ::= AC {: getTb().novoEscopo(); :};
+ABRE_BLOCO ::= AC:ac {: RESULT = ac; getTb().novoEscopo(); :};
 
 BLOCO ::= VAR:var PONTO_VIRGULA BLOCO:b 			{: RESULT = new Bloco(); RESULT.addLinha(var); 		RESULT.addLinhasBloco(b); :}
 		| ATRIBUICAO:att PONTO_VIRGULA BLOCO:b 		{: RESULT = new Bloco(); RESULT.addLinha(att);		RESULT.addLinhasBloco(b); :}
 		| EXPRESSAO:exp PONTO_VIRGULA BLOCO:b 		{: RESULT = new Bloco(); RESULT.addLinha(exp); 		RESULT.addLinhasBloco(b); :}
-		| CALL_FUNC:callFunc PONTO_VIRGULA BLOCO:b 	{: RESULT = new Bloco(); RESULT.addLinha(callFunc); RESULT.addLinhasBloco(b); :}
-		| FUNCAO:func BLOCO:b 						{: RESULT = new Bloco(); RESULT.addLinha(func); 	RESULT.addLinhasBloco(b); :}
 		| ESTRUTURA:est BLOCO:b 					{: RESULT = new Bloco(); RESULT.addLinha(est); 	    RESULT.addLinhasBloco(b); :}
 		| {: getTb().fimEscopo(); :};
 

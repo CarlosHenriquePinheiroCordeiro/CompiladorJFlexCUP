@@ -43,7 +43,7 @@ public class Var implements Codigo {
 
 	@Override
 	public String geraCodigo() {
-		// TODO Auto-generated method stub
+		System.out.println("VAR");
 		return null;
 	}
 

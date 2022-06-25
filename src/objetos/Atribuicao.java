@@ -51,7 +51,7 @@ public class Atribuicao implements Codigo{
 
 	@Override
 	public String geraCodigo() {
-		// TODO Auto-generated method stub
+		System.out.println("ATRIBUICAO");
 		return null;
 	}
 
