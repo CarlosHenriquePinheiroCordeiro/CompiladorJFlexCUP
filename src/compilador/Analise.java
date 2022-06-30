@@ -27,7 +27,7 @@ public class Analise {
 	}
 	
 	public String analiseCodigoTxt() throws FileNotFoundException {
-		BufferedReader bf = new BufferedReader(new FileReader("codigo.txt"));
+		BufferedReader bf = new BufferedReader(new FileReader("programa.txt"));
 		return analiseCompleta(bf);
 	}
 	

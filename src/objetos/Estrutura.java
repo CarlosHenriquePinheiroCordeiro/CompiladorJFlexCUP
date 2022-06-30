@@ -32,5 +32,10 @@ public class Estrutura implements Codigo {
 		getBloco().geraCodigo();
 		return null;
 	}
+	
+	@Override
+	public int getTipoCodigo() {
+		return TipoCodigo.ESTRUTURA;
+	}
 
 }

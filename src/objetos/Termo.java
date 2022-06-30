@@ -22,5 +22,10 @@ public class Termo implements Codigo {
 		return null;
 	}
 	
+	@Override
+	public int getTipoCodigo() {
+		return TipoCodigo.TERMO;
+	}
+	
 
 }

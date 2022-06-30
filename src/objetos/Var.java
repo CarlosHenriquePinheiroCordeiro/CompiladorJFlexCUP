@@ -46,6 +46,11 @@ public class Var implements Codigo {
 		System.out.println("VAR");
 		return null;
 	}
+	
+	@Override
+	public int getTipoCodigo() {
+		return TipoCodigo.DECLARACAO;
+	}
 
 
 }

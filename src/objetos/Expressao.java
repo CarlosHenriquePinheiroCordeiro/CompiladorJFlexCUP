@@ -49,6 +49,11 @@ public class Expressao implements Codigo {
 		System.out.println("EXPRESSAO");
 		return null;
 	}
+	
+	@Override
+	public int getTipoCodigo() {
+		return TipoCodigo.EXPRESSAO;
+	}
 
 
 }

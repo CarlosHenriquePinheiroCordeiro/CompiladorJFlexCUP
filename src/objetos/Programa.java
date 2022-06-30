@@ -60,6 +60,11 @@ public class Programa implements Codigo {
 	public void setBloco(Bloco bloco) {
 		this.bloco = bloco;
 	}
+	
+	@Override
+	public int getTipoCodigo() {
+		return TipoCodigo.PROGRAM;
+	}
 
 
 }

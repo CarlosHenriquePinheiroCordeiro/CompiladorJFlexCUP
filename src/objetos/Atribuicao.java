@@ -55,5 +55,10 @@ public class Atribuicao implements Codigo{
 		return null;
 	}
 
+	@Override
+	public int getTipoCodigo() {
+		return TipoCodigo.ATRIBUICAO;
+	}
+
 
 }
