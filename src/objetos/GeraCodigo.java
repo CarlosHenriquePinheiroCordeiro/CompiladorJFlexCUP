@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import compilador.sym;
 
@@ -28,14 +30,69 @@ public class GeraCodigo {
 	
 	private String data() {
 		String data = "\t.data\n";
-		if (getPrograma().getParametros().size() > 0) {
-			for (Var var : getPrograma().getParametros()) {
-				data += var.getId()+":\t"+getTipoData(var.getTipo())+"\n";
-			}
+		List<Var> declaracoes = new ArrayList<Var>();
+		getDeclaracoesParametrosPrograma(declaracoes);
+		getDeclaracaoPorBloco(getPrograma().getBloco(), declaracoes);
+		for (Var var : declaracoes) {
+			data += getDataVar(var);
 		}
 		return data;
 	}
 	
+	/**
+	 * Retorna as variáveis passadas como argumento para o programa
+	 */
+	private void getDeclaracoesParametrosPrograma(List<Var> declaracoes) {
+		if (getPrograma().getParametros().size() > 0) {
+			for (Var var : getPrograma().getParametros()) {
+				declaracoes.add(var);
+			}
+		}
+	}
+	
+	/**
+	 * Retorna toda as declarações de variáveis do programa escrito
+	 * @param bloco
+	 * @param declaracoes
+	 * @return
+	 */
+	private List<Var> getDeclaracaoPorBloco(Bloco bloco, List<Var> declaracoes) {
+		if (bloco != null) {
+			for (Codigo linha : bloco.getLinhas()) {
+				switch (linha.getTipoCodigo()) {
+					case TipoCodigo.BLOCO: {
+						return getDeclaracaoPorBloco((Bloco)linha, declaracoes);
+					}
+					case TipoCodigo.DECLARACAO: {
+						declaracoes.add((Var)linha);
+						break;
+					}
+					case TipoCodigo.ESTRUTURA: {
+						Estrutura est = (Estrutura)linha;
+						return getDeclaracaoPorBloco(est.getBloco(), declaracoes);
+					}
+					default:
+						break;
+				}
+			}
+		}
+		return declaracoes;
+	}
+	
+	/**
+	 * Retorna um código MIPS de uma declaração de variável
+	 * @param var
+	 * @return
+	 */
+	private String getDataVar(Var var) {
+		return var.getId()+":\t"+getTipoData(var.getTipo())+"\n";
+	}
+	
+	/**
+	 * Retorna o tipo de uma variável em código MIPS
+	 * @param tipo
+	 * @return
+	 */
 	private String getTipoData(Object tipo) {
 		String tipoData = "";
 		switch ((int)tipo) {
