@@ -43,11 +43,28 @@ public class Analise {
             Lexico lex 			     = new Lexico(bf, csf);
             Parser p   				 = new Parser(lex, csf);
             Symbol i   				 = p.parse();
-            retorno    				 = sym.terminalNames[i.sym];
+            retorno    				 = pegaCodigoGerado();
 		} catch (Exception e) {
 			retorno = e.getMessage();
 		}
 		return retorno;
+	}
+	
+	public String pegaCodigoGerado() {
+		String codigo = "";
+		try(
+			BufferedReader bf = new BufferedReader(new FileReader("codigo-gerado.txt"))
+		) {
+			String conteudo = "";
+			while (conteudo != null) {
+				codigo += conteudo;
+				conteudo = bf.readLine();
+			}
+		} catch (Exception e) {
+			codigo = e.getMessage();
+		}
+		System.out.println(codigo);
+		return codigo;
 	}
 
 

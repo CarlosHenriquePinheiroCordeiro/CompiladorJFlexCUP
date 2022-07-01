@@ -51,8 +51,28 @@ public class Atribuicao implements Codigo{
 
 	@Override
 	public String geraCodigo() {
-		System.out.println("ATRIBUICAO");
-		return null;
+		String codigo = "";
+		if (getValor().getOperador() == null) 
+			codigo = geraCodigoAtribuicaoSimples();
+		else 
+			codigo = geraCodigoAtribuicaoExpressao();
+		return codigo;
+	}
+	
+	/**
+	 * Retorna o código gerado para uma atribuição simples, onde o resultado é apenas um termo
+	 * @return
+	 */
+	private String geraCodigoAtribuicaoSimples() {
+		return "";
+	}
+	
+	/**
+	 * Retorna o código gerado para uma atribuição onde o resultado vem de uma expressão com mais termos
+	 * @return
+	 */
+	private String geraCodigoAtribuicaoExpressao() {
+		return "";
 	}
 
 	@Override

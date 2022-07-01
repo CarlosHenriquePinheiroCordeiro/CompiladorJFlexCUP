@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import compilador.sym;
@@ -12,16 +13,19 @@ import compilador.sym;
 public class GeraCodigo {
 
 	private Programa programa;
+	private Hashtable<Integer, String> tipos 		 = new Hashtable<Integer, String>();
 	
 	public GeraCodigo(Programa programa) {
 		setPrograma(programa);
+		setTipos();
 	}
 	
 	public void gerarCodigo() {
 		String codigoGerado = "";
 		codigoGerado += data();
+		codigoGerado += start();
 		codigoGerado += main();
-		escreverArquivo("codigo-gerado.s", codigoGerado);
+		escreverArquivo("codigo-gerado.txt", codigoGerado);
 		//getPrograma().geraCodigo();
 		//OBS: O program(...) {...} NÃO PRECISA GERAR CÓDIGO, A ÚNICA COISA
 		//QUE PRECISA GERAR DELE É INSTANCIAR AS VARIÁVEIS PASSADAS 
@@ -46,6 +50,7 @@ public class GeraCodigo {
 		if (getPrograma().getParametros().size() > 0) {
 			for (Var var : getPrograma().getParametros()) {
 				declaracoes.add(var);
+				Registradores.addRegistrador((String)var.getId());
 			}
 		}
 	}
@@ -64,7 +69,9 @@ public class GeraCodigo {
 						return getDeclaracaoPorBloco((Bloco)linha, declaracoes);
 					}
 					case TipoCodigo.DECLARACAO: {
-						declaracoes.add((Var)linha);
+						Var declaracao = (Var)linha;
+						declaracoes.add(declaracao);
+						Registradores.addRegistrador((String)declaracao.getId());
 						break;
 					}
 					case TipoCodigo.ESTRUTURA: {
@@ -106,6 +113,10 @@ public class GeraCodigo {
 		return tipoData;
 	}
 	
+	private String start() {
+		return "";
+	}
+	
 	private String main() {
 		String main = "";
 		return "";
@@ -132,6 +143,18 @@ public class GeraCodigo {
 	public void setPrograma(Programa programa) {
 		this.programa = programa;
 	}
-	
+
+	public void setTipos(Hashtable<Integer, String> tipos) {
+		this.tipos = tipos;
+	}
+
+	public Hashtable<Integer, String> getTipos() {
+		return tipos;
+	}
+
+	public void setTipos() {
+		this.tipos.put(sym.INT, "word");
+	}
+
 	
 }

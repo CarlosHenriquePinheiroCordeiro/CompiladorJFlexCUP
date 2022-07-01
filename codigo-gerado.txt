@@ -1,0 +1,1 @@
+\t.data\nabc:\t.word\na:\t.word\n
