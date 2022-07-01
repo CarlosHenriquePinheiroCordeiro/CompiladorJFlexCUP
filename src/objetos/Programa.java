@@ -32,8 +32,8 @@ public class Programa implements Codigo {
 
 	@Override
 	public String geraCodigo() {
-		GeraCodigo gerador = new GeraCodigo(this);
-		gerador.gerarCodigo();
+		GeraCodigo.setPrograma(this);
+		GeraCodigo.gerarCodigo();
 		return null;
 	}
 

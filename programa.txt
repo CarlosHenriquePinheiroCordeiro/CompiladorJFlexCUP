@@ -1,7 +1,5 @@
 program hello(int abc) {
 	abc = 3;
-	if (abc) {
-		int a;
-		a = abc;
-	}
+	int inteiro;
+	inteiro = abc;
 }

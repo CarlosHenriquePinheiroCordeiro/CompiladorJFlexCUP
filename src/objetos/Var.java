@@ -44,7 +44,7 @@ public class Var implements Codigo {
 	@Override
 	public String geraCodigo() {
 		System.out.println("VAR");
-		return null;
+		return "";
 	}
 	
 	@Override

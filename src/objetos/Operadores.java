@@ -13,6 +13,10 @@ public abstract class Operadores {
 		return operadores;
 	}
 	
+	public static String getOperador(String op) {
+		return getOperadores().get(op);
+	}
+	
 	private static void setOperadores() {
 		operadores = new Hashtable<String, String>();
 		operadores.put("+" , "add");

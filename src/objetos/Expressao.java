@@ -9,7 +9,7 @@ public class Expressao implements Codigo {
 	public Expressao(Object termo) {
 		setTermo(termo);
 	}
-	
+
 	public Expressao(Object termo, Object operador, Expressao expressao) {
 		setTermo(termo);
 		setOperador(operador);

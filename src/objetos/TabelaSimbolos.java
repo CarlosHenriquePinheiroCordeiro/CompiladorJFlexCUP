@@ -98,6 +98,8 @@ public class TabelaSimbolos {
 	public boolean novoSimbolo(Object simbolo, Object tipo) {
 		if (!existeSimbolo(simbolo)) {
 			addSimbolo(simbolo, new Simbolo(tipo));
+			Registradores.addRegistrador((String)simbolo);
+			GeraCodigo.adicionaDeclaracao(new Var(simbolo, tipo));
 			return true;
 		}
 		throw Excecao.variavelDeclarada(simbolo);
@@ -156,7 +158,7 @@ public class TabelaSimbolos {
 		verificaSimbolosNaoUtilizados();
 		getTabela().pop();
 	}
-	
+
 	/**
 	 * Verifica os símbolos que não foram utilizados
 	 */

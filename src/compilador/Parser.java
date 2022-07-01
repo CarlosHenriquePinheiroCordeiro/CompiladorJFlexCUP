@@ -835,7 +835,7 @@ class CUP$Parser$actions {
 		Location expxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location expxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Expressao exp = (Expressao)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); 
+		 RESULT = new Atribuicao(var.getId(), opAttxleft.getUnit(), exp); getTb().atribuiValor(RESULT); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUICAO",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -853,7 +853,7 @@ class CUP$Parser$actions {
 		Location expxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
 		Location expxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
 		Expressao exp = (Expressao)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new Atribuicao(id, opAtt, exp); getTb().atribuiValor(RESULT); 
+		 RESULT = new Atribuicao(id, opAttxleft.getUnit(), exp); getTb().atribuiValor(RESULT); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ATRIBUICAO",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

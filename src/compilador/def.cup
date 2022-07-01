@@ -118,7 +118,7 @@ ESTRUTURA ::= SELECAO:selecao {: RESULT = selecao; :};
 SELECAO ::= IF AP EXPRESSAO:exp FP ABRE_BLOCO BLOCO:bloco FC {: RESULT = new Estrutura(exp, bloco); :};
 
 ATRIBUICAO ::= VAR:var ATT:opAtt EXPRESSAO:exp     {: RESULT = new Atribuicao(var.getId(), opAtt, exp); getTb().atribuiValor(RESULT); :}
-		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {: RESULT = new Atribuicao(id, opAtt, exp); getTb().atribuiValor(RESULT); :};
+		| IDENTIFICADOR:id ATT:opAtt EXPRESSAO:exp {: RESULT = new Atribuicao(id         , opAtt, exp); getTb().atribuiValor(RESULT); :};
 
 ABRE_BLOCO ::= AC:ac {: RESULT = ac; getTb().novoEscopo(); :};
 

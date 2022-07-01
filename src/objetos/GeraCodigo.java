@@ -10,18 +10,15 @@ import java.util.List;
 
 import compilador.sym;
 
-public class GeraCodigo {
+public abstract class GeraCodigo {
 
-	private Programa programa;
-	private Hashtable<Integer, String> tipos 		 = new Hashtable<Integer, String>();
+	private static Programa programa;
+	private static List<Var> declaracoes 		    = new ArrayList<Var>();
+	private static Hashtable<Integer, String> tipos = new Hashtable<Integer, String>();
 	
-	public GeraCodigo(Programa programa) {
-		setPrograma(programa);
-		setTipos();
-	}
-	
-	public void gerarCodigo() {
+	public static void gerarCodigo() {
 		String codigoGerado = "";
+		setTipos();
 		codigoGerado += data();
 		codigoGerado += start();
 		codigoGerado += main();
@@ -32,58 +29,16 @@ public class GeraCodigo {
 		//COMO PARÂMETRO A PARTIR DO PROGRAM, E TAMBÉM O NOME DO program COMO LABEL
 	}
 	
-	private String data() {
+	/**
+	 * Gera a seção de "data" do código
+	 * @return
+	 */
+	private static String data() {
 		String data = "\t.data\n";
-		List<Var> declaracoes = new ArrayList<Var>();
-		getDeclaracoesParametrosPrograma(declaracoes);
-		getDeclaracaoPorBloco(getPrograma().getBloco(), declaracoes);
-		for (Var var : declaracoes) {
+		for (Var var : getDeclaracoes()) {
 			data += getDataVar(var);
 		}
 		return data;
-	}
-	
-	/**
-	 * Retorna as variáveis passadas como argumento para o programa
-	 */
-	private void getDeclaracoesParametrosPrograma(List<Var> declaracoes) {
-		if (getPrograma().getParametros().size() > 0) {
-			for (Var var : getPrograma().getParametros()) {
-				declaracoes.add(var);
-				Registradores.addRegistrador((String)var.getId());
-			}
-		}
-	}
-	
-	/**
-	 * Retorna toda as declarações de variáveis do programa escrito
-	 * @param bloco
-	 * @param declaracoes
-	 * @return
-	 */
-	private List<Var> getDeclaracaoPorBloco(Bloco bloco, List<Var> declaracoes) {
-		if (bloco != null) {
-			for (Codigo linha : bloco.getLinhas()) {
-				switch (linha.getTipoCodigo()) {
-					case TipoCodigo.BLOCO: {
-						return getDeclaracaoPorBloco((Bloco)linha, declaracoes);
-					}
-					case TipoCodigo.DECLARACAO: {
-						Var declaracao = (Var)linha;
-						declaracoes.add(declaracao);
-						Registradores.addRegistrador((String)declaracao.getId());
-						break;
-					}
-					case TipoCodigo.ESTRUTURA: {
-						Estrutura est = (Estrutura)linha;
-						return getDeclaracaoPorBloco(est.getBloco(), declaracoes);
-					}
-					default:
-						break;
-				}
-			}
-		}
-		return declaracoes;
 	}
 	
 	/**
@@ -91,7 +46,7 @@ public class GeraCodigo {
 	 * @param var
 	 * @return
 	 */
-	private String getDataVar(Var var) {
+	private static String getDataVar(Var var) {
 		return var.getId()+":\t"+getTipoData(var.getTipo())+"\n";
 	}
 	
@@ -100,7 +55,7 @@ public class GeraCodigo {
 	 * @param tipo
 	 * @return
 	 */
-	private String getTipoData(Object tipo) {
+	private static String getTipoData(Object tipo) {
 		String tipoData = "";
 		switch ((int)tipo) {
 			case sym.INT: {
@@ -113,17 +68,27 @@ public class GeraCodigo {
 		return tipoData;
 	}
 	
-	private String start() {
-		return "";
+	/**
+	 * Retorna o código gerado para a seção "start"
+	 * @return
+	 */
+	private static String start() {
+		String start = "\n__start:\n";
+		for (Var var : getDeclaracoes()) {
+			start += "lw\t"+Registradores.getRegistrador((String)var.getId())+", "+(String)var.getId()+"\n";
+		}
+		start += "\tdone\n";
+		return start;
 	}
 	
-	private String main() {
-		String main = "";
-		return "";
+	private static String main() {
+		String main = "\nmain:";
+		main += getPrograma().getBloco().geraCodigo();
+		return main;
 	}
 	
 	
-	private void escreverArquivo(String caminho, String conteudo) {
+	private static void escreverArquivo(String caminho, String conteudo) {
 		try (
 				FileWriter     criadorArquivo 	= new FileWriter(caminho, false);
 				BufferedWriter buffer 			= new BufferedWriter(criadorArquivo);
@@ -136,24 +101,32 @@ public class GeraCodigo {
 		}
 	}
 
-	public Programa getPrograma() {
+	public static Programa getPrograma() {
 		return programa;
 	}
 
-	public void setPrograma(Programa programa) {
-		this.programa = programa;
+	public static void setPrograma(Programa programa) {
+		GeraCodigo.programa = programa;
 	}
 
-	public void setTipos(Hashtable<Integer, String> tipos) {
-		this.tipos = tipos;
+	public static Hashtable<Integer, String> getTipos() {
+		return GeraCodigo.tipos;
 	}
 
-	public Hashtable<Integer, String> getTipos() {
-		return tipos;
+	private static void setTipos() {
+		GeraCodigo.tipos.put(sym.INT, "word");
 	}
-
-	public void setTipos() {
-		this.tipos.put(sym.INT, "word");
+	
+	/**
+	 * Adiciona uma declaração de variável para a lista de declarações
+	 * @param var
+	 */
+	public static void adicionaDeclaracao(Var var) {
+		getDeclaracoes().add(var);
+	}
+	
+	public static List<Var> getDeclaracoes() {
+		return declaracoes;
 	}
 
 	

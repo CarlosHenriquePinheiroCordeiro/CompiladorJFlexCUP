@@ -1,1 +1,10 @@
-\t.data\nabc:\t.word\na:\t.word\n
+	.data
+abc:	.word
+inteiro:	.word
+
+__start:
+lw	$t0, abc
+lw	$t1, inteiro
+	done
+
+main:move	abc, 3move	inteiro, $t0

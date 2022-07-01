@@ -22,7 +22,11 @@ public abstract class Registradores {
 	 * @return
 	 */
 	public static String getRegistrador(String idVar) {
-		return reg.get(idVar);
+		String registrador = null;
+		if (reg.containsKey(idVar)) {
+			registrador = reg.get(idVar);
+		}
+		return registrador;
 	}
 	
 	

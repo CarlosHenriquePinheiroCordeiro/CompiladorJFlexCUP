@@ -19,7 +19,7 @@ public class Atribuicao implements Codigo{
 	 * @param operadorAtribuicao Operador da atribuição
 	 * @param valor Valor da atribuição
 	 */
-	public Atribuicao(Object alvo, Object operadorAtribuicao, Expressao valor) {
+	public Atribuicao(Object alvo, String operadorAtribuicao, Expressao valor) {
 		this.alvo               = alvo;
 		this.operadorAtribuicao = operadorAtribuicao;
 		this.valor 				= valor;
@@ -64,7 +64,24 @@ public class Atribuicao implements Codigo{
 	 * @return
 	 */
 	private String geraCodigoAtribuicaoSimples() {
-		return "";
+		String codigo = "";
+		codigo += Operadores.getOperador((String)getOperadorAtribuicao())+"\t";
+		codigo += (String)getAlvo()+", ";
+		codigo += retornaTermoAtribuicao(getValor().getTermo());
+		return codigo;
+	}
+	
+	/**
+	 * Retorna devidamente o termo para atribuição, verificando se o termo é uma constante ou variável
+	 * @param termo
+	 * @return
+	 */
+	private String retornaTermoAtribuicao(Object termo) {
+		String termoExpressao = Registradores.getRegistrador((String) termo);
+		if (termoExpressao == null) {
+			termoExpressao = (String)termo;
+		}
+		return termoExpressao;
 	}
 	
 	/**

@@ -38,10 +38,11 @@ public class Bloco implements Codigo {
 
 	@Override
 	public String geraCodigo() {
+		String codigo = "";
 		for (Codigo linha : getLinhas()) {
-			linha.geraCodigo();
+			codigo += "\n"+linha.geraCodigo();
 		}
-		return null;
+		return codigo;
 	}
 	
 	@Override
