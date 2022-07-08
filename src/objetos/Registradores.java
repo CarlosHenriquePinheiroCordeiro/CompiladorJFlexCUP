@@ -29,5 +29,15 @@ public abstract class Registradores {
 		return registrador;
 	}
 	
+	/**
+	 * Gera um registrador e retorna a sua chave
+	 * @return
+	 */
+	public static String geraRegistrador() {
+		String registrador = "$t"+countRegistradores;
+		countRegistradores++;
+		return registrador;
+	}
+	
 	
 }

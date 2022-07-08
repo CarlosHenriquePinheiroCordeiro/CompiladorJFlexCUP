@@ -1,5 +1,5 @@
 program hello(int abc) {
 	abc = 3;
 	int inteiro;
-	inteiro = abc;
+	inteiro = abc + 2;
 }

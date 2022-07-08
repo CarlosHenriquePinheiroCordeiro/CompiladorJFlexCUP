@@ -7,4 +7,6 @@ lw	$t0, abc
 lw	$t1, inteiro
 	done
 
-main:move	abc, 3move	inteiro, $t0
+main:
+move	abc, 3
+add		$t1, $t0, 2

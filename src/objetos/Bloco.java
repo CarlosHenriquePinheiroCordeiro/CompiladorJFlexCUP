@@ -40,7 +40,7 @@ public class Bloco implements Codigo {
 	public String geraCodigo() {
 		String codigo = "";
 		for (Codigo linha : getLinhas()) {
-			codigo += "\n"+linha.geraCodigo();
+			codigo += linha.geraCodigo();
 		}
 		return codigo;
 	}

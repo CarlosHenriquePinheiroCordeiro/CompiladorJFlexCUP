@@ -1,4 +1,5 @@
 package objetos;
+import compilador.*;
 
 public class Atribuicao implements Codigo{
 	
@@ -51,11 +52,11 @@ public class Atribuicao implements Codigo{
 
 	@Override
 	public String geraCodigo() {
-		String codigo = "";
+		String codigo = "\n";
 		if (getValor().getOperador() == null) 
-			codigo = geraCodigoAtribuicaoSimples();
+			codigo += geraCodigoAtribuicaoSimples();
 		else 
-			codigo = geraCodigoAtribuicaoExpressao();
+			codigo += geraCodigoAtribuicaoExpressao();
 		return codigo;
 	}
 	
@@ -89,6 +90,19 @@ public class Atribuicao implements Codigo{
 	 * @return
 	 */
 	private String geraCodigoAtribuicaoExpressao() {
+		String codigo = "";
+		if (getValor().getExpressao().getOperador() != null) {
+			codigo += geraCodigoExpressaoComposta();
+		} else {
+			codigo += Operadores.getOperador(sym.terminalNames[(Integer)getValor().getOperador()])+"\t\t";
+			codigo += Registradores.getRegistrador((String)getAlvo())+", ";
+			codigo += (String)retornaTermoAtribuicao((String)getValor().getTermo())+", ";
+			codigo += (String)retornaTermoAtribuicao((String)getValor().getExpressao().getTermo());
+		}
+		return codigo;
+	}
+	
+	private String geraCodigoExpressaoComposta() {
 		return "";
 	}
 
